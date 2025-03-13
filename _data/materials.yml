@@ -1,0 +1,30 @@
+- name: Vinyl Siding
+  description: Affordable, durable, and low-maintenance option available in many colors and styles.
+  image: /assets/images/materials/vinyl-siding.jpg
+  url: /services/vinyl-siding
+
+- name: Fiber Cement Siding
+  description: Premium durability with the authentic look of wood, resistant to fire, rot, and insects.
+  image: /assets/images/materials/fiber-cement-siding.jpg
+  url: /services/fiber-cement-siding
+
+- name: Wood Siding
+  description: Natural beauty and warmth with excellent insulation properties and timeless appeal.
+  image: /assets/images/materials/wood-siding.jpg
+  url: /services/wood-siding
+
+- name: Engineered Wood Siding
+  description: The look of real wood with enhanced durability and lower maintenance requirements.
+  image: /assets/images/materials/engineered-wood-siding.jpg
+  url: /services/engineered-wood-siding
+
+- name: Metal Siding
+  description: Modern, sleek appearance with exceptional durability and weather resistance.
+  image: /assets/images/materials/metal-siding.jpg
+  url: /services/metal-siding
+
+- name: Stone Veneer Siding
+  description: Luxurious, natural appearance that adds significant value and curb appeal to your home.
+  image: /assets/images/materials/stone-veneer-siding.jpg
+  url: /services/stone-veneer-siding
+

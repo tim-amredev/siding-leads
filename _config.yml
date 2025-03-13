@@ -1,0 +1,61 @@
+# Site settings
+title: Instant Siding Prices
+email: info@instantsidingprices.com
+description: >-
+  Get instant pricing estimates for your siding remodel project. Professional siding installation services with transparent pricing and exceptional quality.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://instantsidingprices.com" # the base hostname & protocol for your site
+twitter_username: instantsiding
+github_username: instantsiding
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  services:
+    output: true
+  projects:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+      type: "services"
+    values:
+      layout: "service"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - gemfiles
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+

@@ -1,0 +1,65 @@
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-grid">
+      <div class="footer-column">
+        <div class="footer-logo">
+          <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="{{ site.title }}" class="footer-logo-image">
+        </div>
+        <p class="footer-tagline">Transform your home with premium siding solutions.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link" aria-label="Facebook">{% include icons/facebook.html %}</a>
+          <a href="#" class="social-link" aria-label="Twitter">{% include icons/twitter.html %}</a>
+          <a href="#" class="social-link" aria-label="Instagram">{% include icons/instagram.html %}</a>
+          <a href="#" class="social-link" aria-label="Pinterest">{% include icons/pinterest.html %}</a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3 class="footer-heading">Services</h3>
+        <ul class="footer-links">
+          {% for service in site.services limit:5 %}
+            <li><a href="{{ service.url | relative_url }}">{{ service.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li><a href="{{ '/gallery' | relative_url }}">Gallery</a></li>
+          <li><a href="{{ '/pricing' | relative_url }}">Pricing</a></li>
+          <li><a href="{{ '/estimate' | relative_url }}">Get Estimate</a></li>
+          <li><a href="{{ '/contact' | relative_url }}">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3 class="footer-heading">Contact Us</h3>
+        <ul class="contact-list">
+          <li class="contact-item">
+            <div class="contact-icon">{% include icons/phone.html %}</div>
+            <a href="tel:+18005551234">(800) 555-1234</a>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon">{% include icons/email.html %}</div>
+            <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+          </li>
+          <li class="contact-item">
+            <div class="contact-icon">{% include icons/location.html %}</div>
+            <span>123 Main Street, Anytown, USA</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">&copy; {{ site.time | date: '%Y' }} {{ site.title }}. All rights reserved.</p>
+      <ul class="legal-links">
+        <li><a href="{{ '/privacy-policy' | relative_url }}">Privacy Policy</a></li>
+        <li><a href="{{ '/terms-of-service' | relative_url }}">Terms of Service</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+

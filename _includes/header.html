@@ -1,0 +1,40 @@
+<header class="site-header">
+  <div class="header-container">
+    <div class="logo-container">
+      <a href="{{ '/' | relative_url }}" class="logo-link">
+        <img src="{{ '/assets/images/logo.svg' | relative_url }}" alt="{{ site.title }}" class="logo-image">
+      </a>
+    </div>
+    
+    <nav class="main-nav">
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+        <span class="toggle-bar"></span>
+      </button>
+      
+      <ul class="nav-list">
+        <li class="nav-item {% if page.url == '/' %}active{% endif %}">
+          <a href="{{ '/' | relative_url }}" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item {% if page.url contains '/services/' %}active{% endif %}">
+          <a href="{{ '/services' | relative_url }}" class="nav-link">Services</a>
+        </li>
+        <li class="nav-item {% if page.url contains '/gallery/' %}active{% endif %}">
+          <a href="{{ '/gallery' | relative_url }}" class="nav-link">Gallery</a>
+        </li>
+        <li class="nav-item {% if page.url contains '/pricing/' %}active{% endif %}">
+          <a href="{{ '/pricing' | relative_url }}" class="nav-link">Pricing</a>
+        </li>
+        <li class="nav-item {% if page.url contains '/contact/' %}active{% endif %}">
+          <a href="{{ '/contact' | relative_url }}" class="nav-link">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="header-cta">
+      <a href="{{ '/estimate' | relative_url }}" class="cta-button">Get Estimate</a>
+    </div>
+  </div>
+</header>
+

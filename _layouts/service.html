@@ -1,0 +1,49 @@
+---
+layout: default
+---
+
+<div class="service-header">
+  <div class="service-header-content">
+    <h1 class="service-title">{{ page.title }}</h1>
+    <p class="service-subtitle">{{ page.subtitle }}</p>
+  </div>
+</div>
+
+<div class="service-content">
+  <div class="service-container">
+    <div class="service-main">
+      {{ content }}
+    </div>
+    <div class="service-sidebar">
+      <div class="service-cta-card">
+        <h3>Get a Free Estimate</h3>
+        <p>Find out how much your siding project will cost with our instant estimator.</p>
+        <a href="{{ '/estimate' | relative_url }}" class="cta-button">Get Estimate</a>
+      </div>
+      
+      <div class="service-features">
+        <h3>Service Features</h3>
+        <ul class="feature-list">
+          {% for feature in page.features %}
+            <li class="feature-item">
+              <div class="feature-icon">{% include icons/check.html %}</div>
+              <span>{{ feature }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+      <div class="related-services">
+        <h3>Related Services</h3>
+        <ul class="related-list">
+          {% for service in site.services %}
+            {% if service.url != page.url %}
+              <li><a href="{{ service.url | relative_url }}">{{ service.title }}</a></li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

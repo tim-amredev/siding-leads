@@ -1,0 +1,77 @@
+---
+layout: default
+---
+
+<div class="project-header">
+  <div class="project-header-content">
+    <h1 class="project-title">{{ page.title }}</h1>
+    <p class="project-location">{{ page.location }}</p>
+  </div>
+</div>
+
+<div class="project-content">
+  <div class="project-container">
+    <div class="project-gallery">
+      <div class="project-main-image">
+        <img src="{{ page.main_image | relative_url }}" alt="{{ page.title }}" class="main-image">
+      </div>
+      <div class="project-image-grid">
+        {% for image in page.gallery %}
+          <div class="gallery-image-item">
+            <img src="{{ image.url | relative_url }}" alt="{{ image.alt }}" class="gallery-image">
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div class="project-details">
+      <div class="project-info">
+        <div class="info-item">
+          <h3>Material</h3>
+          <p>{{ page.material }}</p>
+        </div>
+        <div class="info-item">
+          <h3>Project Size</h3>
+          <p>{{ page.size }}</p>
+        </div>
+        <div class="info-item">
+          <h3>Completion Time</h3>
+          <p>{{ page.completion_time }}</p>
+        </div>
+      </div>
+      
+      <div class="project-description">
+        <h2>Project Overview</h2>
+        {{ content }}
+      </div>
+      
+      <div class="project-cta">
+        <h3>Ready for a similar transformation?</h3>
+        <a href="{{ '/estimate' | relative_url }}" class="cta-button">Get Your Free Estimate</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="related-projects">
+  <div class="section-container">
+    <h2 class="section-title">More Projects</h2>
+    <div class="projects-grid">
+      {% assign related_projects = site.projects | where_exp: "item", "item.url != page.url" | sample: 3 %}
+      {% for project in related_projects %}
+        <div class="project-card">
+          <a href="{{ project.url | relative_url }}" class="project-link">
+            <div class="project-card-image">
+              <img src="{{ project.thumbnail | relative_url }}" alt="{{ project.title }}" class="card-image">
+            </div>
+            <div class="project-card-content">
+              <h3 class="project-card-title">{{ project.title }}</h3>
+              <p class="project-card-location">{{ project.location }}</p>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+

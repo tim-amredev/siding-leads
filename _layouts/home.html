@@ -1,0 +1,98 @@
+---
+layout: default
+---
+
+<div class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Transform Your Home With Premium Siding</h1>
+    <p class="hero-subtitle">Enhance curb appeal, increase energy efficiency, and boost your home's value</p>
+    <a href="{{ '/estimate' | relative_url }}" class="cta-button pulse-animation">Get Your Instant Siding Estimate</a>
+  </div>
+  <div class="hero-image-container">
+    <img src="{{ '/assets/images/hero-siding.jpg' | relative_url }}" alt="Beautiful home with new siding" class="hero-image">
+  </div>
+</div>
+
+<section class="benefits-section">
+  <div class="section-container">
+    <h2 class="section-title">Why Choose Our Siding Services?</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">{% include icons/durability.html %}</div>
+        <h3>Exceptional Durability</h3>
+        <p>Our premium siding materials are built to withstand harsh weather conditions and last for decades.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">{% include icons/energy.html %}</div>
+        <h3>Energy Efficiency</h3>
+        <p>Save on utility bills with insulated siding options that improve your home's thermal performance.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">{% include icons/value.html %}</div>
+        <h3>Increased Home Value</h3>
+        <p>Quality siding installation can provide up to 80% return on investment when selling your home.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">{% include icons/maintenance.html %}</div>
+        <h3>Low Maintenance</h3>
+        <p>Enjoy your home's beautiful exterior without the hassle of constant upkeep and repainting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="materials-section">
+  <div class="section-container">
+    <h2 class="section-title">Premium Siding Materials</h2>
+    <div class="materials-slider">
+      {% for material in site.data.materials %}
+        <div class="material-slide">
+          <img src="{{ material.image | relative_url }}" alt="{{ material.name }}" class="material-image">
+          <h3>{{ material.name }}</h3>
+          <p>{{ material.description }}</p>
+          <a href="{{ material.url | relative_url }}" class="learn-more-link">Learn More</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="section-container">
+    <h2 class="cta-title">Ready to Transform Your Home?</h2>
+    <p class="cta-text">Get an instant estimate for your siding project in just a few clicks.</p>
+    <a href="{{ '/estimate' | relative_url }}" class="cta-button">Get Your Free Estimate</a>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="section-container">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <div class="testimonials-grid">
+      {% for testimonial in site.data.testimonials limit:3 %}
+        <div class="testimonial-card">
+          <div class="testimonial-rating">
+            {% for i in (1..5) %}
+              {% if i <= testimonial.rating %}
+                {% include icons/star-filled.html %}
+              {% else %}
+                {% include icons/star-empty.html %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <p class="testimonial-text">"{{ testimonial.text }}"</p>
+          <div class="testimonial-author">
+            <img src="{{ testimonial.avatar | relative_url }}" alt="{{ testimonial.name }}" class="testimonial-avatar">
+            <div class="testimonial-info">
+              <h4>{{ testimonial.name }}</h4>
+              <p>{{ testimonial.location }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{{ content }}
+
