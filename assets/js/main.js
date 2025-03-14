@@ -11,23 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // FAQ accordion
+  // FAQ accordion (simplified)
   const faqItems = document.querySelectorAll(".faq-item")
 
   if (faqItems.length > 0) {
     faqItems.forEach((item) => {
       const question = item.querySelector(".faq-question")
 
-      question.addEventListener("click", () => {
-        item.classList.toggle("active")
-
-        // Close other open FAQ items
-        faqItems.forEach((otherItem) => {
-          if (otherItem !== item && otherItem.classList.contains("active")) {
-            otherItem.classList.remove("active")
-          }
+      if (question) {
+        question.addEventListener("click", () => {
+          item.classList.toggle("active")
         })
-      })
+      }
     })
   }
 
