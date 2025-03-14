@@ -6,6 +6,7 @@
   --accent-light: #00d2ff;
   --text: #ffffff;
   --text-secondary: #b0b0b0;
+  --error: #f56565;
 }
 
 * {
@@ -228,6 +229,23 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Form error styles */
+.form-group.error label {
+  color: var(--error);
+}
+
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+  border-color: var(--error);
+}
+
+.error-message {
+  color: var(--error);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
 }
 
 /* Responsive styles */
