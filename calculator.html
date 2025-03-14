@@ -1,57 +1,312 @@
----
-layout: default
-title: Siding Calculator
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siding Calculator | Instant Siding Prices</title>
+    <style>
+        /* Dark theme with clean design */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: rgba(0,0,0,0.7);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav li {
+            margin-left: 2rem;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #00d2ff;
+        }
+        
+        section {
+            padding: 5rem 0;
+            padding-top: 100px;
+        }
+        
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+        }
+        
+        form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #252525;
+            color: #ffffff;
+        }
+        
+        button {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .result {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .result-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #00d2ff;
+        }
+        
+        footer {
+            background-color: #0a0a0a;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">Instant Siding Prices</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="quote.html">Get Quote</a></li>
+                    <li><a href="calculator.html">Calculator</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<section style="padding-top: 100px;">
-    <div class="container">
-        <h2>Siding Cost Calculator</h2>
-        <div class="card">
-            <form id="calculator-form">
-                <div>
-                    <label for="home-size">Home Size (Square Feet)</label>
-                    <input type="number" id="home-size" name="home-size" min="500" required>
-                </div>
+    <section>
+        <div class="container">
+            <h2>Siding Cost Calculator</h2>
+            <div class="card">
+                <form id="calculator-form">
+                    <div>
+                        <label for="home-size">Home Size (Square Feet)</label>
+                        <input type="number" id="home-size" name="home-size" min="500" required>
+                    </div>
+                    
+                    <div>
+                        <label for="siding-material">Siding Material</label>
+                        <select id="siding-material" name="siding-material" required>
+                            <option value="">Select Material</option>
+                            <option value="vinyl">Vinyl Siding</option>
+                            <option value="fiber-cement">Fiber Cement Siding</option>
+                            <option value="wood">Wood Siding</option>
+                            <option value="engineered-wood">Engineered Wood Siding</option>
+                            <option value="metal">Metal Siding</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="stories">Number of Stories</label>
+                        <select id="stories" name="stories" required>
+                            <option value="1">1 Story</option>
+                            <option value="2">2 Stories</option>
+                            <option value="3">3+ Stories</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="quality">Quality Level</label>
+                        <select id="quality" name="quality" required>
+                            <option value="economy">Economy</option>
+                            <option value="standard" selected>Standard</option>
+                            <option value="premium">Premium</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit">Calculate Cost</button>
+                </form>
                 
-                <div>
-                    <label for="siding-material">Siding Material</label>
-                    <select id="siding-material" name="siding-material" required>
-                        <option value="">Select Material</option>
-                        <option value="vinyl">Vinyl Siding</option>
-                        <option value="fiber-cement">Fiber Cement Siding</option>
-                        <option value="wood">Wood Siding</option>
-                        <option value="engineered-wood">Engineered Wood Siding</option>
-                        <option value="metal">Metal Siding</option>
-                    </select>
+                <div id="calculator-result" class="result">
+                    <h3 class="result-title">Estimated Siding Cost</h3>
+                    <div class="price" id="price-range">$8,000 - $12,000</div>
+                    <p>This is an estimate based on the information provided. For a more accurate quote, please <a href="quote.html">request a personalized estimate</a>.</p>
                 </div>
-                
-                <div>
-                    <label for="stories">Number of Stories</label>
-                    <select id="stories" name="stories" required>
-                        <option value="1">1 Story</option>
-                        <option value="2">2 Stories</option>
-                        <option value="3">3+ Stories</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label for="quality">Quality Level</label>
-                    <select id="quality" name="quality" required>
-                        <option value="economy">Economy</option>
-                        <option value="standard" selected>Standard</option>
-                        <option value="premium">Premium</option>
-                    </select>
-                </div>
-                
-                <button type="submit">Calculate Cost</button>
-            </form>
-            
-            <div id="calculator-result" class="result">
-                <h3 class="result-title">Estimated Siding Cost</h3>
-                <div class="price" id="price-range">$8,000 - $12,000</div>
-                <p>This is an estimate based on the information provided. For a more accurate quote, please <a href="{{ '/quote.html' | relative_url }}">request a personalized estimate</a>.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Instant Siding Prices. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculatorForm = document.getElementById('calculator-form');
+            const calculatorResult = document.getElementById('calculator-result');
+            const priceRange = document.getElementById('price-range');
+            
+            if (calculatorForm) {
+                calculatorForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form values
+                    const homeSize = parseInt(document.getElementById('home-size').value);
+                    const material = document.getElementById('siding-material').value;
+                    const stories = parseInt(document.getElementById('stories').value);
+                    const quality = document.getElementById('quality').value;
+                    
+                    // Calculate price range
+                    let pricePerSqFt = {
+                        min: 0,
+                        max: 0
+                    };
+                    
+                    // Base price by material
+                    switch(material) {
+                        case 'vinyl':
+                            pricePerSqFt = { min: 3, max: 7 };
+                            break;
+                        case 'fiber-cement':
+                            pricePerSqFt = { min: 5, max: 11 };
+                            break;
+                        case 'wood':
+                            pricePerSqFt = { min: 6, max: 12 };
+                            break;
+                        case 'engineered-wood':
+                            pricePerSqFt = { min: 4, max: 9 };
+                            break;
+                        case 'metal':
+                            pricePerSqFt = { min: 4, max: 10 };
+                            break;
+                        default:
+                            pricePerSqFt = { min: 4, max: 10 };
+                    }
+                    
+                    // Adjust for quality
+                    if (quality === 'economy') {
+                        pricePerSqFt.min *= 0.8;
+                        pricePerSqFt.max *= 0.8;
+                    } else if (quality === 'premium') {
+                        pricePerSqFt.min *= 1.3;
+                        pricePerSqFt.max *= 1.3;
+                    }
+                    
+                    // Adjust for stories
+                    if (stories === 2) {
+                        pricePerSqFt.min *= 1.1;
+                        pricePerSqFt.max *= 1.1;
+                    } else if (stories >= 3) {
+                        pricePerSqFt.min *= 1.2;
+                        pricePerSqFt.max *= 1.2;
+                    }
+                    
+                    // Calculate total price range
+                    const minPrice = Math.round(homeSize * pricePerSqFt.min);
+                    const maxPrice = Math.round(homeSize * pricePerSqFt.max);
+                    
+                    // Update result
+                    priceRange.textContent = '$' + minPrice.toLocaleString() + ' - $' + maxPrice.toLocaleString();
+                    calculatorResult.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
 
