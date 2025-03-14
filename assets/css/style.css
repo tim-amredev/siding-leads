@@ -218,6 +218,19 @@ footer {
   text-align: center;
 }
 
+/* Page specific styles */
+.page-content {
+  padding-top: 80px; /* To account for fixed header */
+}
+
+.thank-you-section {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   nav ul {
     display: none;
