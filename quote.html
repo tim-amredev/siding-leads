@@ -170,69 +170,69 @@
         </div>
     </header>
 
-    <section>
-        <div class="container">
-            <h2>Get Your Instant Siding Quote</h2>
-            <div class="card">
-                <form id="quote-form" action="https://formsubmit.co/leads@americanremodeling.net" method="POST">
-                    <!-- FormSubmit configuration -->
-                    <input type="hidden" name="_captcha" value="true">
-                    <input type="hidden" name="_subject" value="New Siding Quote Request">
-                    <input type="hidden" name="_next" value="https://tim-amredev.github.io/siding-leads/thank-you.html">
-                    <input type="hidden" name="_template" value="table">
-                    
-                    <div>
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    
-                    <div>
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div>
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    
-                    <div>
-                        <label for="address">Property Address</label>
-                        <input type="text" id="address" name="address" required>
-                    </div>
-                    
-                    <div>
-                        <label for="size">Approximate Home Size (sq ft)</label>
-                        <input type="number" id="size" name="size" min="500" required>
-                    </div>
-                    
-                    <div>
-                        <label for="material">Preferred Siding Material</label>
-                        <select id="material" name="material" required>
-                            <option value="">Select Material</option>
-                            <option value="vinyl">Vinyl Siding</option>
-                            <option value="fiber-cement">Fiber Cement Siding</option>
-                            <option value="wood">Wood Siding</option>
-                            <option value="engineered-wood">Engineered Wood Siding</option>
-                            <option value="metal">Metal Siding</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="message">Additional Information</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    
-                    <button type="submit">Submit Quote Request</button>
-                </form>
-                
-                <div id="quote-result" class="result">
-                    <h3 class="result-title">Thank You!</h3>
-                    <p>We've received your quote request and will contact you shortly with a detailed estimate.</p>
-                </div>
-            </div>
+    <section class="page-content">
+  <div class="container">
+    <h2>Get Your Instant Siding Quote</h2>
+    <div class="card">
+      <form id="quote-form" action="https://formsubmit.co/leads@americanremodeling.net" method="POST">
+        <!-- FormSubmit configuration -->
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_subject" value="New Siding Quote Request">
+        <input type="hidden" name="_next" value="{{ '/thank-you.html' | absolute_url }}">
+        <input type="hidden" name="_template" value="table">
+        
+        <div>
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required>
         </div>
-    </section>
+        
+        <div>
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div>
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" required>
+        </div>
+        
+        <div>
+          <label for="address">Property Address</label>
+          <input type="text" id="address" name="address" required>
+        </div>
+        
+        <div>
+          <label for="size">Approximate Home Size (sq ft)</label>
+          <input type="number" id="size" name="size" min="500" required>
+        </div>
+        
+        <div>
+          <label for="material">Preferred Siding Material</label>
+          <select id="material" name="material" required>
+            <option value="">Select Material</option>
+            <option value="vinyl">Vinyl Siding</option>
+            <option value="fiber-cement">Fiber Cement Siding</option>
+            <option value="wood">Wood Siding</option>
+            <option value="engineered-wood">Engineered Wood Siding</option>
+            <option value="metal">Metal Siding</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="message">Additional Information</label>
+          <textarea id="message" name="message" rows="4"></textarea>
+        </div>
+        
+        <button type="submit">Submit Quote Request</button>
+      </form>
+      
+      <div id="quote-result" class="result">
+        <h3 class="result-title">Thank You!</h3>
+        <p>We've received your quote request and will contact you shortly with a detailed estimate.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <footer>
         <div class="container">
