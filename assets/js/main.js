@@ -5,9 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (quoteForm) {
     quoteForm.addEventListener("submit", (e) => {
-      e.preventDefault()
-      quoteForm.style.display = "none"
-      quoteResult.style.display = "block"
+      // We'll let FormSubmit handle the form submission
+      // This is just for any additional JS functionality
     })
   }
 
