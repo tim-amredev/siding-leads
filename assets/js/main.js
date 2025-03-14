@@ -1,129 +1,83 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Mobile menu toggle
-  const mobileMenuToggle = document.querySelector(".mobile-menu-toggle")
-  const navList = document.querySelector(".nav-list")
+  // Quote form submission
+  const quoteForm = document.getElementById("quote-form")
+  const quoteResult = document.getElementById("quote-result")
 
-  if (mobileMenuToggle && navList) {
-    mobileMenuToggle.addEventListener("click", () => {
-      navList.classList.toggle("active")
-      mobileMenuToggle.classList.toggle("active")
-      document.body.classList.toggle("menu-open")
+  if (quoteForm) {
+    quoteForm.addEventListener("submit", (e) => {
+      e.preventDefault()
+      quoteForm.style.display = "none"
+      quoteResult.style.display = "block"
     })
   }
 
-  // FAQ accordion (simplified)
-  const faqItems = document.querySelectorAll(".faq-item")
+  // Calculator form submission
+  const calculatorForm = document.getElementById("calculator-form")
+  const calculatorResult = document.getElementById("calculator-result")
+  const priceRange = document.getElementById("price-range")
 
-  if (faqItems.length > 0) {
-    faqItems.forEach((item) => {
-      const question = item.querySelector(".faq-question")
+  if (calculatorForm) {
+    calculatorForm.addEventListener("submit", (e) => {
+      e.preventDefault()
 
-      if (question) {
-        question.addEventListener("click", () => {
-          item.classList.toggle("active")
-        })
+      // Get form values
+      const homeSize = Number.parseInt(document.getElementById("home-size").value)
+      const material = document.getElementById("siding-material").value
+      const stories = Number.parseInt(document.getElementById("stories").value)
+      const quality = document.getElementById("quality").value
+
+      // Calculate price range
+      let pricePerSqFt = {
+        min: 0,
+        max: 0,
       }
-    })
-  }
 
-  // Materials slider
-  const materialsSlider = document.querySelector(".materials-slider")
-  if (materialsSlider && typeof Swiper !== "undefined") {
-    const swiperMaterials = new Swiper(materialsSlider, {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-        },
-        1024: {
-          slidesPerView: 3,
-        },
-      },
-    })
-  }
+      // Base price by material
+      switch (material) {
+        case "vinyl":
+          pricePerSqFt = { min: 3, max: 7 }
+          break
+        case "fiber-cement":
+          pricePerSqFt = { min: 5, max: 11 }
+          break
+        case "wood":
+          pricePerSqFt = { min: 6, max: 12 }
+          break
+        case "engineered-wood":
+          pricePerSqFt = { min: 4, max: 9 }
+          break
+        case "metal":
+          pricePerSqFt = { min: 4, max: 10 }
+          break
+        default:
+          pricePerSqFt = { min: 4, max: 10 }
+      }
 
-  // Testimonials slider
-  const testimonialsSlider = document.querySelector(".testimonials-slider")
-  if (testimonialsSlider && typeof Swiper !== "undefined") {
-    const swiperTestimonials = new Swiper(testimonialsSlider, {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      autoplay: {
-        delay: 5000,
-      },
-    })
-  }
+      // Adjust for quality
+      if (quality === "economy") {
+        pricePerSqFt.min *= 0.8
+        pricePerSqFt.max *= 0.8
+      } else if (quality === "premium") {
+        pricePerSqFt.min *= 1.3
+        pricePerSqFt.max *= 1.3
+      }
 
-  // Gallery filters
-  const filterButtons = document.querySelectorAll(".filter-button")
-  const projectCards = document.querySelectorAll(".project-card")
+      // Adjust for stories
+      if (stories === 2) {
+        pricePerSqFt.min *= 1.1
+        pricePerSqFt.max *= 1.1
+      } else if (stories >= 3) {
+        pricePerSqFt.min *= 1.2
+        pricePerSqFt.max *= 1.2
+      }
 
-  if (filterButtons.length > 0 && projectCards.length > 0) {
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", function () {
-        const filter = this.getAttribute("data-filter")
+      // Calculate total price range
+      const minPrice = Math.round(homeSize * pricePerSqFt.min)
+      const maxPrice = Math.round(homeSize * pricePerSqFt.max)
 
-        // Remove active class from all buttons
-        filterButtons.forEach((btn) => {
-          btn.classList.remove("active")
-        })
-
-        // Add active class to clicked button
-        this.classList.add("active")
-
-        // Filter projects
-        projectCards.forEach((card) => {
-          if (filter === "all") {
-            card.style.display = "block"
-          } else {
-            if (card.getAttribute("data-category").includes(filter)) {
-              card.style.display = "block"
-            } else {
-              card.style.display = "none"
-            }
-          }
-        })
-      })
-    })
-  }
-
-  // Smooth scroll for anchor links
-  const anchorLinks = document.querySelectorAll('a[href^="#"]')
-
-  if (anchorLinks.length > 0) {
-    anchorLinks.forEach((link) => {
-      link.addEventListener("click", function (e) {
-        const href = this.getAttribute("href")
-
-        if (href !== "#") {
-          e.preventDefault()
-          const targetElement = document.querySelector(href)
-
-          if (targetElement) {
-            window.scrollTo({
-              top: targetElement.offsetTop - 100,
-              behavior: "smooth",
-            })
-          }
-        }
-      })
+      // Update result
+      priceRange.textContent = "$" + minPrice.toLocaleString() + " - $" + maxPrice.toLocaleString()
+      calculatorResult.style.display = "block"
     })
   }
 })
