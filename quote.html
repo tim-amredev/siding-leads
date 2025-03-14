@@ -1,63 +1,253 @@
----
-layout: default
-title: Get a Quote
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get a Quote | Instant Siding Prices</title>
+    <style>
+        /* Dark theme with clean design */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        header {
+            background-color: rgba(0,0,0,0.7);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav li {
+            margin-left: 2rem;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #00d2ff;
+        }
+        
+        section {
+            padding: 5rem 0;
+            padding-top: 100px;
+        }
+        
+        .card {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+        }
+        
+        form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #252525;
+            color: #ffffff;
+        }
+        
+        button {
+            background: linear-gradient(to right, #3a7bd5, #00d2ff);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+        }
+        
+        .result {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .result-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: #0a0a0a;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">Instant Siding Prices</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="quote.html">Get Quote</a></li>
+                    <li><a href="calculator.html">Calculator</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<section style="padding-top: 100px;">
-    <div class="container">
-        <h2>Get Your Instant Siding Quote</h2>
-        <div class="card">
-            <form id="quote-form">
-                <div>
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
+    <section>
+        <div class="container">
+            <h2>Get Your Instant Siding Quote</h2>
+            <div class="card">
+                <form id="quote-form">
+                    <div>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div>
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div>
+                        <label for="address">Property Address</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    
+                    <div>
+                        <label for="size">Approximate Home Size (sq ft)</label>
+                        <input type="number" id="size" name="size" min="500" required>
+                    </div>
+                    
+                    <div>
+                        <label for="material">Preferred Siding Material</label>
+                        <select id="material" name="material" required>
+                            <option value="">Select Material</option>
+                            <option value="vinyl">Vinyl Siding</option>
+                            <option value="fiber-cement">Fiber Cement Siding</option>
+                            <option value="wood">Wood Siding</option>
+                            <option value="engineered-wood">Engineered Wood Siding</option>
+                            <option value="metal">Metal Siding</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="message">Additional Information</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit">Submit Quote Request</button>
+                </form>
                 
-                <div>
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
+                <div id="quote-result" class="result">
+                    <h3 class="result-title">Thank You!</h3>
+                    <p>We've received your quote request and will contact you shortly with a detailed estimate.</p>
                 </div>
-                
-                <div>
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                
-                <div>
-                    <label for="address">Property Address</label>
-                    <input type="text" id="address" name="address" required>
-                </div>
-                
-                <div>
-                    <label for="size">Approximate Home Size (sq ft)</label>
-                    <input type="number" id="size" name="size" min="500" required>
-                </div>
-                
-                <div>
-                    <label for="material">Preferred Siding Material</label>
-                    <select id="material" name="material" required>
-                        <option value="">Select Material</option>
-                        <option value="vinyl">Vinyl Siding</option>
-                        <option value="fiber-cement">Fiber Cement Siding</option>
-                        <option value="wood">Wood Siding</option>
-                        <option value="engineered-wood">Engineered Wood Siding</option>
-                        <option value="metal">Metal Siding</option>
-                    </select>
-                </div>
-                
-                <div>
-                    <label for="message">Additional Information</label>
-                    <textarea id="message" name="message" rows="4"></textarea>
-                </div>
-                
-                <button type="submit">Submit Quote Request</button>
-            </form>
-            
-            <div id="quote-result" class="result">
-                <h3 class="result-title">Thank You!</h3>
-                <p>We've received your quote request and will contact you shortly with a detailed estimate.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Instant Siding Prices. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quoteForm = document.getElementById('quote-form');
+            const quoteResult = document.getElementById('quote-result');
+            
+            if (quoteForm) {
+                quoteForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    quoteForm.style.display = 'none';
+                    quoteResult.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
 
