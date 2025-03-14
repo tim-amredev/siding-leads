@@ -8,15 +8,14 @@
     /* Dark theme with clean design */
     :root {
       --bg-dark: #121212;
-      --bg-card: #1e1e1e;
+      --bg-card: #1d1d1d;
+      --input-bg: #2d2d2d;
+      --input-border: #404040;
       --accent: #3a7bd5;
       --accent-light: #00d2ff;
       --text: #ffffff;
       --text-secondary: #b0b0b0;
       --error: #f56565;
-      --input-bg: #252525;
-      --input-border: #333;
-      --card-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
     
     * {
@@ -61,10 +60,11 @@
     }
     
     .logo {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       font-weight: bold;
       color: var(--text);
       text-decoration: none;
+      white-space: nowrap;
     }
     
     nav ul {
@@ -94,8 +94,14 @@
       background: none;
       border: none;
       color: var(--text);
+      padding: 0.5rem;
       font-size: 1.5rem;
       cursor: pointer;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .mobile-menu {
@@ -104,9 +110,9 @@
       top: 60px;
       left: 0;
       right: 0;
-      background-color: rgba(0,0,0,0.95);
-      padding: 1rem 0;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      background-color: var(--bg-card);
+      padding: 0.5rem 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
       z-index: 99;
     }
     
@@ -121,8 +127,12 @@
     }
     
     .mobile-menu li {
-      padding: 0.75rem 2rem;
+      padding: 0.75rem 1.5rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mobile-menu li:last-child {
+      border-bottom: none;
     }
     
     .mobile-menu a {
@@ -130,6 +140,7 @@
       text-decoration: none;
       display: block;
       font-size: 1.1rem;
+      padding: 0.5rem 0;
     }
     
     section {
@@ -140,9 +151,9 @@
     .card {
       background-color: var(--bg-card);
       border-radius: 12px;
-      padding: 2rem;
+      padding: 1.5rem;
       margin-bottom: 2rem;
-      box-shadow: var(--card-shadow);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
     h2 {
@@ -206,15 +217,17 @@
     
     input, select, textarea {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.8rem 1rem;
       border: 1px solid var(--input-border);
       border-radius: 8px;
       background-color: var(--input-bg);
       color: var(--text);
-      font-size: 1rem;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      -webkit-appearance: none;
-      appearance: none;
+      font-size: 16px;
+    }
+
+    input::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.7;
     }
     
     /* Custom select styling */
@@ -346,10 +359,9 @@
       left: 0;
       right: 0;
       background-color: var(--bg-card);
-      padding: 0.75rem;
+      padding: 0.75rem 1rem;
       box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
       z-index: 90;
-      text-align: center;
     }
     
     .progress-bar {
@@ -366,20 +378,39 @@
       width: 0%;
       transition: width 0.3s ease;
     }
+
+    #progress-text {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
     
     /* Responsive styles */
     @media (max-width: 768px) {
-      h2 {
-        font-size: 1.75rem;
-      }
-      
-      h3 {
-        font-size: 1.3rem;
+      .container {
+        width: 100%;
+        padding: 0 1rem;
       }
       
       .card {
-        padding: 1.5rem;
-        border-radius: 8px;
+        margin: 0.5rem;
+        padding: 1.25rem;
+      }
+      
+      nav ul {
+        display: none;
+      }
+      
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .form-progress {
+        display: block;
+      }
+      
+      section {
+        padding-top: 80px;
+        padding-bottom: 5rem;
       }
       
       .form-row {
@@ -391,34 +422,18 @@
         grid-template-columns: 1fr;
       }
       
-      nav ul {
-        display: none;
-      }
-      
-      .mobile-menu-toggle {
-        display: block;
-      }
-      
-      .form-progress {
-        display: block;
-      }
-      
-      section {
-        padding-bottom: 5rem; /* Make room for fixed progress bar */
-      }
-      
-      /* Increase touch targets */
       .radio-option, .checkbox-option {
         padding: 0.85rem;
       }
       
       input, select, textarea {
-        font-size: 16px; /* Prevent iOS zoom on focus */
+        font-size: 16px;
         padding: 0.9rem;
       }
       
       button {
-        padding: 1.1rem 2rem;
+        padding: 1rem;
+        width: 100%;
       }
     }
     
