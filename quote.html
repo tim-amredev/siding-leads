@@ -174,7 +174,13 @@
         <div class="container">
             <h2>Get Your Instant Siding Quote</h2>
             <div class="card">
-                <form id="quote-form">
+                <form id="quote-form" action="https://formsubmit.co/leads@americanremodeling.net" method="POST">
+                    <!-- FormSubmit configuration -->
+                    <input type="hidden" name="_captcha" value="true">
+                    <input type="hidden" name="_subject" value="New Siding Quote Request">
+                    <input type="hidden" name="_next" value="https://tim-amredev.github.io/siding-leads/thank-you.html">
+                    <input type="hidden" name="_template" value="table">
+                    
                     <div>
                         <label for="name">Full Name</label>
                         <input type="text" id="name" name="name" required>
