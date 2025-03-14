@@ -177,57 +177,57 @@
         </div>
     </header>
 
-    <section>
-        <div class="container">
-            <h2>Siding Cost Calculator</h2>
-            <div class="card">
-                <form id="calculator-form">
-                    <div>
-                        <label for="home-size">Home Size (Square Feet)</label>
-                        <input type="number" id="home-size" name="home-size" min="500" required>
-                    </div>
-                    
-                    <div>
-                        <label for="siding-material">Siding Material</label>
-                        <select id="siding-material" name="siding-material" required>
-                            <option value="">Select Material</option>
-                            <option value="vinyl">Vinyl Siding</option>
-                            <option value="fiber-cement">Fiber Cement Siding</option>
-                            <option value="wood">Wood Siding</option>
-                            <option value="engineered-wood">Engineered Wood Siding</option>
-                            <option value="metal">Metal Siding</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="stories">Number of Stories</label>
-                        <select id="stories" name="stories" required>
-                            <option value="1">1 Story</option>
-                            <option value="2">2 Stories</option>
-                            <option value="3">3+ Stories</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label for="quality">Quality Level</label>
-                        <select id="quality" name="quality" required>
-                            <option value="economy">Economy</option>
-                            <option value="standard" selected>Standard</option>
-                            <option value="premium">Premium</option>
-                        </select>
-                    </div>
-                    
-                    <button type="submit">Calculate Cost</button>
-                </form>
-                
-                <div id="calculator-result" class="result">
-                    <h3 class="result-title">Estimated Siding Cost</h3>
-                    <div class="price" id="price-range">$8,000 - $12,000</div>
-                    <p>This is an estimate based on the information provided. For a more accurate quote, please <a href="quote.html">request a personalized estimate</a>.</p>
-                </div>
-            </div>
+    <section class="page-content">
+  <div class="container">
+    <h2>Siding Cost Calculator</h2>
+    <div class="card">
+      <form id="calculator-form">
+        <div>
+          <label for="home-size">Home Size (Square Feet)</label>
+          <input type="number" id="home-size" name="home-size" min="500" required>
         </div>
-    </section>
+        
+        <div>
+          <label for="siding-material">Siding Material</label>
+          <select id="siding-material" name="siding-material" required>
+            <option value="">Select Material</option>
+            <option value="vinyl">Vinyl Siding</option>
+            <option value="fiber-cement">Fiber Cement Siding</option>
+            <option value="wood">Wood Siding</option>
+            <option value="engineered-wood">Engineered Wood Siding</option>
+            <option value="metal">Metal Siding</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="stories">Number of Stories</label>
+          <select id="stories" name="stories" required>
+            <option value="1">1 Story</option>
+            <option value="2">2 Stories</option>
+            <option value="3">3+ Stories</option>
+          </select>
+        </div>
+        
+        <div>
+          <label for="quality">Quality Level</label>
+          <select id="quality" name="quality" required>
+            <option value="economy">Economy</option>
+            <option value="standard" selected>Standard</option>
+            <option value="premium">Premium</option>
+          </select>
+        </div>
+        
+        <button type="submit">Calculate Cost</button>
+      </form>
+      
+      <div id="calculator-result" class="result">
+        <h3 class="result-title">Estimated Siding Cost</h3>
+        <div class="price" id="price-range">$8,000 - $12,000</div>
+        <p>This is an estimate based on the information provided. For a more accurate quote, please <a href="{{ '/quote.html' | relative_url }}">request a personalized estimate</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <footer>
         <div class="container">
