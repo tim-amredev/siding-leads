@@ -6,13 +6,34 @@
   <title>Get a Quote | Instant Siding Prices</title>
   <style>
     /* Dark theme with clean design */
+    :root {
+      --bg-dark: #121212;
+      --bg-card: #1e1e1e;
+      --accent: #3a7bd5;
+      --accent-light: #00d2ff;
+      --text: #ffffff;
+      --text-secondary: #b0b0b0;
+      --error: #f56565;
+      --input-bg: #252525;
+      --input-border: #333;
+      --card-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
     body {
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background-color: #121212;
-      color: #ffffff;
+      background-color: var(--bg-dark);
+      color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
     
     .container {
@@ -23,11 +44,14 @@
     }
     
     header {
-      background-color: rgba(0,0,0,0.7);
+      background-color: rgba(0,0,0,0.85);
       padding: 1rem 0;
       position: fixed;
       width: 100%;
       z-index: 100;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
     }
     
     .header-content {
@@ -39,7 +63,7 @@
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
-      color: #ffffff;
+      color: var(--text);
       text-decoration: none;
     }
     
@@ -55,13 +79,57 @@
     }
     
     nav a {
-      color: #ffffff;
+      color: var(--text);
       text-decoration: none;
       transition: color 0.3s;
     }
     
     nav a:hover {
-      color: #00d2ff;
+      color: var(--accent-light);
+    }
+    
+    /* Mobile menu */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.95);
+      padding: 1rem 0;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      z-index: 99;
+    }
+    
+    .mobile-menu.active {
+      display: block;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .mobile-menu li {
+      padding: 0.75rem 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .mobile-menu a {
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+      font-size: 1.1rem;
     }
     
     section {
@@ -70,11 +138,11 @@
     }
     
     .card {
-      background-color: #1e1e1e;
-      border-radius: 8px;
+      background-color: var(--bg-card);
+      border-radius: 12px;
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow);
     }
     
     h2 {
@@ -82,6 +150,7 @@
       text-align: center;
       position: relative;
       padding-bottom: 1rem;
+      font-size: 2rem;
     }
     
     h2::after {
@@ -92,7 +161,7 @@
       transform: translateX(-50%);
       width: 100px;
       height: 3px;
-      background: linear-gradient(to right, #3a7bd5, #00d2ff);
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
     }
     
     h3 {
@@ -100,6 +169,14 @@
       margin-bottom: 1rem;
       border-bottom: 1px solid rgba(255,255,255,0.1);
       padding-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+    
+    h4 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.2rem;
+      color: var(--accent-light);
     }
     
     form {
@@ -113,12 +190,6 @@
       gap: 1.5rem;
     }
     
-    @media (max-width: 768px) {
-      .form-row {
-        grid-template-columns: 1fr;
-      }
-    }
-    
     .form-group {
       margin-bottom: 1.5rem;
     }
@@ -130,22 +201,44 @@
     }
     
     .required {
-      color: #f56565;
+      color: var(--error);
     }
     
     input, select, textarea {
       width: 100%;
       padding: 0.8rem;
-      border: 1px solid #333;
-      border-radius: 4px;
-      background-color: #252525;
-      color: #ffffff;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      background-color: var(--input-bg);
+      color: var(--text);
       font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    
+    /* Custom select styling */
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 1rem;
+      padding-right: 2.5rem;
     }
     
     input:focus, select:focus, textarea:focus {
       outline: none;
-      border-color: #3a7bd5;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.3);
+    }
+    
+    /* Improve touch targets for mobile */
+    input[type="radio"],
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 0.75rem;
+      margin-top: 0.25rem;
     }
     
     .radio-group, .checkbox-group {
@@ -155,18 +248,13 @@
       margin-top: 0.5rem;
     }
     
-    @media (max-width: 768px) {
-      .radio-group, .checkbox-group {
-        grid-template-columns: 1fr;
-      }
-    }
-    
     .radio-option, .checkbox-option {
       display: flex;
       align-items: flex-start;
-      padding: 0.5rem;
-      border-radius: 4px;
+      padding: 0.75rem;
+      border-radius: 8px;
       transition: background-color 0.3s;
+      border: 1px solid rgba(255,255,255,0.1);
     }
     
     .radio-option:hover, .checkbox-option:hover {
@@ -174,7 +262,8 @@
     }
     
     .radio-option input, .checkbox-option input {
-      width: auto;
+      width: 20px;
+      height: 20px;
       margin-right: 0.75rem;
       margin-top: 0.25rem;
     }
@@ -187,20 +276,25 @@
     .consent-group {
       background-color: rgba(0,0,0,0.2);
       padding: 1rem;
-      border-radius: 4px;
+      border-radius: 8px;
       margin-top: 1rem;
     }
     
     button {
-      background: linear-gradient(to right, #3a7bd5, #00d2ff);
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
       color: white;
       border: none;
-      padding: 0.8rem 2rem;
-      border-radius: 4px;
+      padding: 1rem 2rem;
+      border-radius: 8px;
       cursor: pointer;
       font-weight: bold;
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
       margin-top: 1rem;
+      font-size: 1.1rem;
+      width: 100%;
+      max-width: 400px;
+      margin: 1.5rem auto 0;
+      display: block;
     }
     
     button:hover {
@@ -208,8 +302,12 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
     
+    button:active {
+      transform: translateY(-1px);
+    }
+    
     .result {
-      background-color: #1e1e1e;
+      background-color: var(--bg-card);
       padding: 2rem;
       border-radius: 8px;
       margin-top: 2rem;
@@ -228,15 +326,143 @@
       text-align: center;
     }
     
+    .terms-link, .privacy-link {
+      color: var(--accent-light);
+      text-decoration: underline;
+    }
+    
+    /* Form section dividers */
+    .form-section {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Form progress indicator */
+    .form-progress {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: var(--bg-card);
+      padding: 0.75rem;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+      z-index: 90;
+      text-align: center;
+    }
+    
+    .progress-bar {
+      height: 4px;
+      background-color: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    /* Responsive styles */
     @media (max-width: 768px) {
+      h2 {
+        font-size: 1.75rem;
+      }
+      
+      h3 {
+        font-size: 1.3rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      
+      .radio-group, .checkbox-group {
+        grid-template-columns: 1fr;
+      }
+      
       nav ul {
         display: none;
       }
+      
+      .mobile-menu-toggle {
+        display: block;
+      }
+      
+      .form-progress {
+        display: block;
+      }
+      
+      section {
+        padding-bottom: 5rem; /* Make room for fixed progress bar */
+      }
+      
+      /* Increase touch targets */
+      .radio-option, .checkbox-option {
+        padding: 0.85rem;
+      }
+      
+      input, select, textarea {
+        font-size: 16px; /* Prevent iOS zoom on focus */
+        padding: 0.9rem;
+      }
+      
+      button {
+        padding: 1.1rem 2rem;
+      }
     }
     
-    .terms-link, .privacy-link {
-      color: #00d2ff;
-      text-decoration: underline;
+    /* Accessibility improvements */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+    
+    /* Focus styles for keyboard navigation */
+    a:focus, button:focus, input:focus, select:focus, textarea:focus {
+      outline: 2px solid var(--accent-light);
+      outline-offset: 2px;
+    }
+    
+    /* Floating labels for mobile (optional enhancement) */
+    .float-label {
+      position: relative;
+    }
+    
+    .float-label label {
+      position: absolute;
+      left: 0.8rem;
+      top: 0.8rem;
+      color: var(--text-secondary);
+      transition: all 0.2s ease-out;
+      pointer-events: none;
+      font-size: 1rem;
+    }
+    
+    .float-label input:focus + label,
+    .float-label input:not(:placeholder-shown) + label {
+      top: -0.5rem;
+      left: 0.5rem;
+      font-size: 0.75rem;
+      padding: 0 0.25rem;
+      background-color: var(--bg-card);
     }
   </style>
 </head>
@@ -251,8 +477,17 @@
           <li><a href="calculator.html">Calculator</a></li>
         </ul>
       </nav>
+      <button class="mobile-menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
     </div>
   </header>
+  
+  <div class="mobile-menu">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="quote.html">Get Quote</a></li>
+      <li><a href="calculator.html">Calculator</a></li>
+    </ul>
+  </div>
 
   <section class="page-content">
     <div class="container">
@@ -265,374 +500,387 @@
           <input type="hidden" name="_next" value="https://tim-amredev.github.io/siding-leads/thank-you.html">
           <input type="hidden" name="_template" value="table">
           
-          <h3>Contact Information</h3>
-          
-          <div class="form-row">
-            <div class="form-group">
-              <label for="first-name">First Name <span class="required">*</span></label>
-              <input type="text" id="first-name" name="first_name" required>
+          <div class="form-section">
+            <h3>Contact Information</h3>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="first-name">First Name <span class="required">*</span></label>
+                <input type="text" id="first-name" name="first_name" required autocomplete="given-name">
+              </div>
+              
+              <div class="form-group">
+                <label for="last-name">Last Name <span class="required">*</span></label>
+                <input type="text" id="last-name" name="last_name" required autocomplete="family-name">
+              </div>
             </div>
             
             <div class="form-group">
-              <label for="last-name">Last Name <span class="required">*</span></label>
-              <input type="text" id="last-name" name="last_name" required>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="email">Email Address <span class="required">*</span></label>
-            <input type="email" id="email" name="email" required>
-          </div>
-          
-          <div class="form-group">
-            <label for="phone">Phone Number <span class="required">*</span></label>
-            <input type="tel" id="phone" name="phone" required>
-          </div>
-          
-          <h4>Property Location</h4>
-          <div class="form-group">
-            <label for="street-address">Street Address <span class="required">*</span></label>
-            <input type="text" id="street-address" name="street_address" placeholder="123 Main St" required>
-          </div>
-
-          <div class="form-group">
-            <label for="apt-unit">Apartment/Unit Number</label>
-            <input type="text" id="apt-unit" name="apt_unit" placeholder="Apt 4B">
-          </div>
-
-          <div class="form-row">
-            <div class="form-group">
-              <label for="city">City <span class="required">*</span></label>
-              <input type="text" id="city" name="city" required>
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email">
             </div>
             
             <div class="form-group">
-              <label for="state">State <span class="required">*</span></label>
-              <select id="state" name="state" required>
-                <option value="">Select State</option>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option>
-                <option value="DE">Delaware</option>
-                <option value="DC">District Of Columbia</option>
-                <option value="FL">Florida</option>
-                <option value="GA">Georgia</option>
-                <option value="HI">Hawaii</option>
-                <option value="ID">Idaho</option>
-                <option value="IL">Illinois</option>
-                <option value="IN">Indiana</option>
-                <option value="IA">Iowa</option>
-                <option value="KS">Kansas</option>
-                <option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option>
-                <option value="ME">Maine</option>
-                <option value="MD">Maryland</option>
-                <option value="MA">Massachusetts</option>
-                <option value="MI">Michigan</mi>
-                <option value="MN">Minnesota</option>
-                <option value="MS">Mississippi</option>
-                <option value="MO">Missouri</option>
-                <option value="MT">Montana</option>
-                <option value="NE">Nebraska</option>
-                <option value="NV">Nevada</option>
-                <option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option>
-                <option value="NM">New Mexico</option>
-                <option value="NY">New York</option>
-                <option value="NC">North Carolina</option>
-                <option value="ND">North Dakota</option>
-                <option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option>
-                <option value="OR">Oregon</option>
-                <option value="PA">Pennsylvania</option>
-                <option value="RI">Rhode Island</option>
-                <option value="SC">South Carolina</option>
-                <option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option>
-                <option value="TX">Texas</option>
-                <option value="UT">Utah</option>
-                <option value="VT">Vermont</option>
-                <option value="VA">Virginia</option>
-                <option value="WA">Washington</option>
-                <option value="WV">West Virginia</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WY">Wyoming</option>
-              </select>
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel" pattern="[0-9]{3}[-. ]?[0-9]{3}[-. ]?[0-9]{4}" placeholder="123-456-7890">
             </div>
           </div>
+          
+          <div class="form-section">
+            <h4>Property Location</h4>
+            <div class="form-group">
+              <label for="street-address">Street Address <span class="required">*</span></label>
+              <input type="text" id="street-address" name="street_address" placeholder="123 Main St" required autocomplete="address-line1">
+            </div>
 
-          <div class="form-group">
-            <label for="zip">ZIP Code <span class="required">*</span></label>
-            <input type="text" id="zip" name="zip" pattern="[0-9]{5}" placeholder="12345" required>
-          </div>
-          
-          <h3>Project Information</h3>
-          
-          <div class="form-group">
-            <label>What type of siding material are you considering for your remodel? <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="siding_material" value="Vinyl" required>
-                Vinyl
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_material" value="Wood">
-                Wood
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_material" value="Fiber cement">
-                Fiber cement
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_material" value="Metal">
-                Metal
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_material" value="Brick">
-                Brick
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_material" value="Other" id="material-other-radio">
-                Other
-              </label>
+            <div class="form-group">
+              <label for="apt-unit">Apartment/Unit Number</label>
+              <input type="text" id="apt-unit" name="apt_unit" placeholder="Apt 4B" autocomplete="address-line2">
             </div>
-            <div class="other-input" id="material-other-input">
-              <label for="material-other">Please specify:</label>
-              <input type="text" id="material-other" name="material_other">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City <span class="required">*</span></label>
+                <input type="text" id="city" name="city" required autocomplete="address-level2">
+              </div>
+              
+              <div class="form-group">
+                <label for="state">State <span class="required">*</span></label>
+                <select id="state" name="state" required autocomplete="address-level1">
+                  <option value="">Select State</option>
+                  <option value="AL">Alabama</option>
+                  <option value="AK">Alaska</option>
+                  <option value="AZ">Arizona</option>
+                  <option value="AR">Arkansas</option>
+                  <option value="CA">California</option>
+                  <option value="CO">Colorado</option>
+                  <option value="CT">Connecticut</option>
+                  <option value="DE">Delaware</option>
+                  <option value="DC">District Of Columbia</option>
+                  <option value="FL">Florida</option>
+                  <option value="GA">Georgia</option>
+                  <option value="HI">Hawaii</option>
+                  <option value="ID">Idaho</option>
+                  <option value="IL">Illinois</option>
+                  <option value="IN">Indiana</option>
+                  <option value="IA">Iowa</option>
+                  <option value="KS">Kansas</option>
+                  <option value="KY">Kentucky</option>
+                  <option value="LA">Louisiana</option>
+                  <option value="ME">Maine</option>
+                  <option value="MD">Maryland</option>
+                  <option value="MA">Massachusetts</option>
+                  <option value="MI">Michigan</option>
+                  <option value="MN">Minnesota</option>
+                  <option value="MS">Mississippi</option>
+                  <option value="MO">Missouri</option>
+                  <option value="MT">Montana</option>
+                  <option value="NE">Nebraska</option>
+                  <option value="NV">Nevada</option>
+                  <option value="NH">New Hampshire</option>
+                  <option value="NJ">New Jersey</option>
+                  <option value="NM">New Mexico</option>
+                  <option value="NY">New York</option>
+                  <option value="NC">North Carolina</option>
+                  <option value="ND">North Dakota</option>
+                  <option value="OH">Ohio</option>
+                  <option value="OK">Oklahoma</option>
+                  <option value="OR">Oregon</option>
+                  <option value="PA">Pennsylvania</option>
+                  <option value="RI">Rhode Island</option>
+                  <option value="SC">South Carolina</option>
+                  <option value="SD">South Dakota</option>
+                  <option value="TN">Tennessee</option>
+                  <option value="TX">Texas</option>
+                  <option value="UT">Utah</option>
+                  <option value="VT">Vermont</option>
+                  <option value="VA">Virginia</option>
+                  <option value="WA">Washington</option>
+                  <option value="WV">West Virginia</option>
+                  <option value="WI">Wisconsin</option>
+                  <option value="WY">Wyoming</option>
+                </select>
+              </div>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label>What is the approximate square footage of the area you want to side? <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="square_footage" value="Less than 1,000 sq ft" required>
-                Less than 1,000 sq ft
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="square_footage" value="1,000 - 2,000 sq ft">
-                1,000 - 2,000 sq ft
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="square_footage" value="2,000 - 3,000 sq ft">
-                2,000 - 3,000 sq ft
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="square_footage" value="3,000 - 4,000 sq ft">
-                3,000 - 4,000 sq ft
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="square_footage" value="More than 4,000 sq ft">
-                More than 4,000 sq ft
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="square_footage" value="I'm not sure">
-                I'm not sure
-              </label>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label>Is your current siding damaged or in need of repair? <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="siding_condition" value="Yes, it needs repair" required>
-                Yes, it needs repair
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_condition" value="No, it's in good condition">
-                No, it's in good condition
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="siding_condition" value="I'm not sure">
-                I'm not sure
-              </label>
+
+            <div class="form-group">
+              <label for="zip">ZIP Code <span class="required">*</span></label>
+              <input type="text" id="zip" name="zip" pattern="[0-9]{5}" placeholder="12345" required autocomplete="postal-code" inputmode="numeric">
             </div>
           </div>
           
-          <h3>Design & Timeline</h3>
-          
-          <div class="form-group">
-            <label>Do you have any specific design preferences for your new siding?</label>
-            <div class="checkbox-group">
-              <label class="checkbox-option">
-                <input type="checkbox" name="design_preferences[]" value="Specific color">
-                Specific color
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="design_preferences[]" value="Specific texture">
-                Specific texture
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="design_preferences[]" value="Architectural style">
-                Architectural style
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="design_preferences[]" value="No specific preferences">
-                No specific preferences
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="design_preferences[]" value="Other" id="design-other-checkbox">
-                Other
-              </label>
+          <div class="form-section">
+            <h3>Project Information</h3>
+            
+            <div class="form-group">
+              <label>What type of siding material are you considering for your remodel? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="siding_material" value="Vinyl" required>
+                  Vinyl
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_material" value="Wood">
+                  Wood
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_material" value="Fiber cement">
+                  Fiber cement
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_material" value="Metal">
+                  Metal
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_material" value="Brick">
+                  Brick
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_material" value="Other" id="material-other-radio">
+                  Other
+                </label>
+              </div>
+              <div class="other-input" id="material-other-input">
+                <label for="material-other">Please specify:</label>
+                <input type="text" id="material-other" name="material_other">
+              </div>
             </div>
-            <div class="other-input" id="design-other-input">
-              <label for="design-other">Please specify:</label>
-              <input type="text" id="design-other" name="design_other">
+            
+            <div class="form-group">
+              <label>What is the approximate square footage of the area you want to side? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="square_footage" value="Less than 1,000 sq ft" required>
+                  Less than 1,000 sq ft
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="square_footage" value="1,000 - 2,000 sq ft">
+                  1,000 - 2,000 sq ft
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="square_footage" value="2,000 - 3,000 sq ft">
+                  2,000 - 3,000 sq ft
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="square_footage" value="3,000 - 4,000 sq ft">
+                  3,000 - 4,000 sq ft
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="square_footage" value="More than 4,000 sq ft">
+                  More than 4,000 sq ft
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="square_footage" value="I'm not sure">
+                  I'm not sure
+                </label>
+              </div>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label>When would you like the siding remodel to be completed? <span class="required">*</span></label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="timeline" value="As soon as possible" required>
-                As soon as possible
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="timeline" value="Within the next month">
-                Within the next month
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="timeline" value="Within the next 3 months">
-                Within the next 3 months
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="timeline" value="Within the next 6 months">
-                Within the next 6 months
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="timeline" value="No specific timeline">
-                No specific timeline
-              </label>
-            </div>
-          </div>
-          
-          <div class="form-group">
-            <label>What is your approximate budget for this siding remodel?</label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="budget" value="Less than $5,000">
-                Less than $5,000
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="budget" value="$5,000 - $10,000">
-                $5,000 - $10,000
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="budget" value="$10,000 - $20,000">
-                $10,000 - $20,000
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="budget" value="$20,000 - $30,000">
-                $20,000 - $30,000
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="budget" value="More than $30,000">
-                More than $30,000
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="budget" value="Prefer not to say">
-                Prefer not to say
-              </label>
+            
+            <div class="form-group">
+              <label>Is your current siding damaged or in need of repair? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="siding_condition" value="Yes, it needs repair" required>
+                  Yes, it needs repair
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_condition" value="No, it's in good condition">
+                  No, it's in good condition
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="siding_condition" value="I'm not sure">
+                  I'm not sure
+                </label>
+              </div>
             </div>
           </div>
           
-          <h3>Additional Information</h3>
-          
-          <div class="form-group">
-            <label>Have you received any quotes for this project yet?</label>
-            <div class="radio-group">
-              <label class="radio-option">
-                <input type="radio" name="previous_quotes" value="Yes, from one contractor">
-                Yes, from one contractor
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="previous_quotes" value="Yes, from multiple contractors">
-                Yes, from multiple contractors
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="previous_quotes" value="No, not yet">
-                No, not yet
-              </label>
+          <div class="form-section">
+            <h3>Design & Timeline</h3>
+            
+            <div class="form-group">
+              <label>Do you have any specific design preferences for your new siding?</label>
+              <div class="checkbox-group">
+                <label class="checkbox-option">
+                  <input type="checkbox" name="design_preferences[]" value="Specific color">
+                  Specific color
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="design_preferences[]" value="Specific texture">
+                  Specific texture
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="design_preferences[]" value="Architectural style">
+                  Architectural style
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="design_preferences[]" value="No specific preferences">
+                  No specific preferences
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="design_preferences[]" value="Other" id="design-other-checkbox">
+                  Other
+                </label>
+              </div>
+              <div class="other-input" id="design-other-input">
+                <label for="design-other">Please specify:</label>
+                <input type="text" id="design-other" name="design_other">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>When would you like the siding remodel to be completed? <span class="required">*</span></label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="timeline" value="As soon as possible" required>
+                  As soon as possible
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="timeline" value="Within the next month">
+                  Within the next month
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="timeline" value="Within the next 3 months">
+                  Within the next 3 months
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="timeline" value="Within the next 6 months">
+                  Within the next 6 months
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="timeline" value="No specific timeline">
+                  No specific timeline
+                </label>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>What is your approximate budget for this siding remodel?</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="budget" value="Less than $5,000">
+                  Less than $5,000
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="budget" value="$5,000 - $10,000">
+                  $5,000 - $10,000
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="budget" value="$10,000 - $20,000">
+                  $10,000 - $20,000
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="budget" value="$20,000 - $30,000">
+                  $20,000 - $30,000
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="budget" value="More than $30,000">
+                  More than $30,000
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="budget" value="Prefer not to say">
+                  Prefer not to say
+                </label>
+              </div>
             </div>
           </div>
           
-          <div class="form-group">
-            <label>Are there any additional features you'd like to include in your siding remodel?</label>
-            <div class="checkbox-group">
-              <label class="checkbox-option">
-                <input type="checkbox" name="additional_features[]" value="Insulation">
-                Insulation
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="additional_features[]" value="Decorative trim">
-                Decorative trim
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="additional_features[]" value="Soffits">
-                Soffits
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="additional_features[]" value="Fascia">
-                Fascia
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="additional_features[]" value="None">
-                None
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="additional_features[]" value="Other" id="features-other-checkbox">
-                Other
-              </label>
+          <div class="form-section">
+            <h3>Additional Information</h3>
+            
+            <div class="form-group">
+              <label>Have you received any quotes for this project yet?</label>
+              <div class="radio-group">
+                <label class="radio-option">
+                  <input type="radio" name="previous_quotes" value="Yes, from one contractor">
+                  Yes, from one contractor
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="previous_quotes" value="Yes, from multiple contractors">
+                  Yes, from multiple contractors
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="previous_quotes" value="No, not yet">
+                  No, not yet
+                </label>
+              </div>
             </div>
-            <div class="other-input" id="features-other-input">
-              <label for="features-other">Please specify:</label>
-              <input type="text" id="features-other" name="features_other">
+            
+            <div class="form-group">
+              <label>Are there any additional features you'd like to include in your siding remodel?</label>
+              <div class="checkbox-group">
+                <label class="checkbox-option">
+                  <input type="checkbox" name="additional_features[]" value="Insulation">
+                  Insulation
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="additional_features[]" value="Decorative trim">
+                  Decorative trim
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="additional_features[]" value="Soffits">
+                  Soffits
+                </label>
+                  value="Soffits">
+                  Soffits
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="additional_features[]" value="Fascia">
+                  Fascia
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="additional_features[]" value="None">
+                  None
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="additional_features[]" value="Other" id="features-other-checkbox">
+                  Other
+                </label>
+              </div>
+              <div class="other-input" id="features-other-input">
+                <label for="features-other">Please specify:</label>
+                <input type="text" id="features-other" name="features_other">
+              </div>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label>Do you have any specific concerns or requirements for your new siding?</label>
-            <div class="checkbox-group">
-              <label class="checkbox-option">
-                <input type="checkbox" name="concerns[]" value="Eco-friendly materials">
-                Eco-friendly materials
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="concerns[]" value="Low maintenance">
-                Low maintenance
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="concerns[]" value="High durability">
-                High durability
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="concerns[]" value="Fire resistance">
-                Fire resistance
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="concerns[]" value="None">
-                None
-              </label>
-              <label class="checkbox-option">
-                <input type="checkbox" name="concerns[]" value="Other" id="concerns-other-checkbox">
-                Other
-              </label>
+            
+            <div class="form-group">
+              <label>Do you have any specific concerns or requirements for your new siding?</label>
+              <div class="checkbox-group">
+                <label class="checkbox-option">
+                  <input type="checkbox" name="concerns[]" value="Eco-friendly materials">
+                  Eco-friendly materials
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="concerns[]" value="Low maintenance">
+                  Low maintenance
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="concerns[]" value="High durability">
+                  High durability
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="concerns[]" value="Fire resistance">
+                  Fire resistance
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="concerns[]" value="None">
+                  None
+                </label>
+                <label class="checkbox-option">
+                  <input type="checkbox" name="concerns[]" value="Other" id="concerns-other-checkbox">
+                  Other
+                </label>
+              </div>
+              <div class="other-input" id="concerns-other-input">
+                <label for="concerns-other">Please specify:</label>
+                <input type="text" id="concerns-other" name="concerns_other">
+              </div>
             </div>
-            <div class="other-input" id="concerns-other-input">
-              <label for="concerns-other">Please specify:</label>
-              <input type="text" id="concerns-other" name="concerns_other">
+            
+            <div class="form-group">
+              <label for="additional-comments">Additional Comments or Questions</label>
+              <textarea id="additional-comments" name="additional_comments" rows="4"></textarea>
             </div>
-          </div>
-          
-          <div class="form-group">
-            <label for="additional-comments">Additional Comments or Questions</label>
-            <textarea id="additional-comments" name="additional_comments" rows="4"></textarea>
           </div>
           
           <div class="form-group consent-group">
@@ -660,6 +908,13 @@
     </div>
   </section>
 
+  <div class="form-progress">
+    <span id="progress-text">Completing form...</span>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+  </div>
+
   <footer>
     <div class="container">
       <p>&copy; 2023 Instant Siding Prices. All rights reserved.</p>
@@ -668,6 +923,18 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const menuToggle = document.querySelector('.mobile-menu-toggle');
+      const mobileMenu = document.querySelector('.mobile-menu');
+      
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', function() {
+          mobileMenu.classList.toggle('active');
+          menuToggle.setAttribute('aria-expanded', 
+            mobileMenu.classList.contains('active') ? 'true' : 'false');
+        });
+      }
+      
       // Handle "Other" options
       const materialOtherRadio = document.getElementById('material-other-radio');
       const materialOtherInput = document.getElementById('material-other-input');
@@ -706,17 +973,69 @@
         });
       }
       
-      // Form submission
-      const quoteForm = document.getElementById('quote-form');
-      const quoteResult = document.getElementById('quote-result');
+      // Form progress tracking (for mobile)
+      const form = document.getElementById('quote-form');
+      const progressFill = document.getElementById('progress-fill');
+      const progressText = document.getElementById('progress-text');
       
-      if (quoteForm) {
-        quoteForm.addEventListener('submit', function(e) {
+      if (form && progressFill) {
+        // Calculate form completion percentage
+        const calculateProgress = function() {
+          const requiredFields = form.querySelectorAll('[required]');
+          const completedFields = Array.from(requiredFields).filter(field => {
+            if (field.type === 'radio') {
+              const name = field.name;
+              return form.querySelector(`input[name="${name}"]:checked`);
+            } else if (field.type === 'checkbox') {
+              return field.checked;
+            } else {
+              return field.value.trim() !== '';
+            }
+          });
+          
+          const percentage = Math.round((completedFields.length / requiredFields.length) * 100);
+          progressFill.style.width = `${percentage}%`;
+          progressText.textContent = `Form completion: ${percentage}%`;
+        };
+        
+        // Update progress when form fields change
+        form.addEventListener('change', calculateProgress);
+        form.addEventListener('input', calculateProgress);
+        
+        // Initial calculation
+        calculateProgress();
+      }
+      
+      // Form submission
+      if (form) {
+        form.addEventListener('submit', function(e) {
           // Let FormSubmit handle the actual form submission
           // This is just for visual feedback if JavaScript is enabled
           // The form will still work without JavaScript
         });
       }
+      
+      // Improve mobile experience by scrolling to fields with errors
+      form.addEventListener('invalid', function(e) {
+        // Prevent the browser's default behavior of scrolling to the first invalid field
+        e.preventDefault();
+        
+        // Get all invalid fields
+        const invalidFields = form.querySelectorAll(':invalid');
+        
+        // If there are invalid fields, scroll to the first one
+        if (invalidFields.length > 0) {
+          invalidFields[0].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+          
+          // Focus the field after scrolling
+          setTimeout(function() {
+            invalidFields[0].focus();
+          }, 500);
+        }
+      }, true);
     });
   </script>
 </body>
