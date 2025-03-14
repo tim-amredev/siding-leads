@@ -3,8 +3,8 @@ title: Instant Siding Prices
 email: info@instantsidingprices.com
 description: >-
   Get instant pricing estimates for your siding remodel project. Professional siding installation services with transparent pricing and exceptional quality.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://instantsidingprices.com" # the base hostname & protocol for your site
+baseurl: "/siding-leads/" # the subpath of your site, e.g. /blog
+url: "https://tim-amredev.github.io" # the base hostname & protocol for your site
 twitter_username: instantsiding
 github_username: instantsiding
 
