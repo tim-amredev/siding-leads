@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const calculatorSteps = document.querySelectorAll(".calculator-step")
   const nextButtons = document.querySelectorAll(".next-button")
   const backButtons = document.querySelectorAll(".back-button")
+  const recalculateButton = document.getElementById("recalculate")
 
   // Initially hide the results
   if (estimateResults) {
@@ -53,6 +54,16 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
+  // Handle recalculate button
+  if (recalculateButton) {
+    recalculateButton.addEventListener("click", () => {
+      estimateResults.style.display = "none"
+      document.querySelector(`.calculator-step[data-step="1"]`).classList.add("active")
+      updateProgress(1)
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    })
+  }
+
   // Handle form submission
   if (estimateForm) {
     estimateForm.addEventListener("submit", (e) => {
@@ -69,6 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // Update results
         updateResults(estimate)
 
+        // Hide all steps
+        calculatorSteps.forEach((step) => {
+          step.classList.remove("active")
+        })
+
         // Show results
         estimateResults.style.display = "block"
 
@@ -80,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
           e.preventDefault()
 
           // Redirect to contact page with form data
-          const contactUrl = new URL("/contact", window.location.origin)
+          const contactUrl = new URL("/quote.html", window.location.origin)
 
           // Add form data to URL
           contactUrl.searchParams.append("name", formData.get("name"))
@@ -139,10 +155,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get form values
     const homeSize = Number.parseFloat(formData.get("home-size"))
     const stories = Number.parseInt(formData.get("stories"))
+    const complexity = formData.get("complexity")
     const currentSiding = formData.get("current-siding")
     const projectType = formData.get("project-type")
+    const removeExisting = formData.get("remove-existing")
     const newSiding = formData.get("new-siding")
     const sidingQuality = formData.get("siding-quality")
+    const addInsulation = formData.get("insulation")
     const additionalServices = formData.getAll("additional-services")
     const zipCode = formData.get("zip-code")
 
@@ -197,6 +216,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Base labor costs per square foot
     const laborCostPerSqFt = { low: 2, high: 5 }
 
+    // Adjust labor costs based on complexity
+    if (complexity === "moderate") {
+      laborCostPerSqFt.low *= 1.2
+      laborCostPerSqFt.high *= 1.2
+    } else if (complexity === "complex") {
+      laborCostPerSqFt.low *= 1.5
+      laborCostPerSqFt.high *= 1.5
+    }
+
     // Adjust labor costs based on stories
     if (stories === 2) {
       laborCostPerSqFt.low *= 1.2
@@ -224,13 +252,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const includedItems = []
 
     // Add cost for removing existing siding
-    if (currentSiding !== "none" && projectType !== "repair") {
+    if (removeExisting === "yes" && currentSiding !== "none") {
       additionalCosts += homeSize * 1.5 // $1.50 per sq ft for removal
       includedItems.push("Removal of existing siding")
+    } else if (removeExisting === "partial" && currentSiding !== "none") {
+      additionalCosts += homeSize * 0.75 // $0.75 per sq ft for partial removal
+      includedItems.push("Partial removal of existing siding")
     }
 
     // Add costs for additional services
-    if (additionalServices.includes("insulation")) {
+    if (addInsulation === "yes") {
       additionalCosts += homeSize * 2 // $2.00 per sq ft for insulation
       includedItems.push("Insulation installation")
     }
@@ -252,6 +283,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const estimatedPerimeter = Math.sqrt(homeSize) * 4
       additionalCosts += estimatedPerimeter * 12 // $12 per linear foot for soffit/fascia
       includedItems.push("Soffit and fascia replacement")
+    }
+
+    if (additionalServices.includes("windows")) {
+      // Estimate number of windows based on square footage
+      const estimatedWindows = Math.ceil(homeSize / 300)
+      additionalCosts += estimatedWindows * 75 // $75 per window for wrapping
+      includedItems.push("Window wrapping")
     }
 
     // Always include these items
@@ -282,7 +320,7 @@ document.addEventListener("DOMContentLoaded", () => {
     )
 
     // Calculate cost per square foot
-    const avgCostPerSqFt = (lowEstimate + highEstimate) / (2 * homeSize)
+    const avgCostPerSqFt = ((lowEstimate + highEstimate) / (2 * homeSize)).toFixed(2)
 
     return {
       lowEstimate: lowEstimate,
@@ -300,7 +338,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("high-estimate").textContent = "$" + estimate.highEstimate.toLocaleString()
     document.getElementById("material-cost").textContent = "$" + estimate.materialCost.toLocaleString()
     document.getElementById("labor-cost").textContent = "$" + estimate.laborCost.toLocaleString()
-    document.getElementById("sqft-cost").textContent = "$" + estimate.costPerSqFt.toFixed(2)
+    document.getElementById("sqft-cost").textContent = "$" + estimate.costPerSqFt
 
     // Update included items
     const includedList = document.getElementById("included-items")
