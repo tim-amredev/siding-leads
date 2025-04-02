@@ -23,38 +23,13 @@
   <section class="page-content">
     <div class="container">
       <h2>Siding Cost Calculator</h2>
-      <p class="section-subtitle">Get a detailed estimate for your siding project based on industry-standard pricing</p>
+      <p class="section-subtitle">Get an instant estimate for your siding project based on industry-standard pricing</p>
       
       <div class="card">
-        <div class="calculator-progress">
-          <div class="progress-steps">
-            <div class="progress-step active" data-step="1">
-              <span class="step-number">1</span>
-              <span class="step-label">Property</span>
-            </div>
-            <div class="progress-step" data-step="2">
-              <span class="step-number">2</span>
-              <span class="step-label">Materials</span>
-            </div>
-            <div class="progress-step" data-step="3">
-              <span class="step-number">3</span>
-              <span class="step-label">Features</span>
-            </div>
-            <div class="progress-step" data-step="4">
-              <span class="step-number">4</span>
-              <span class="step-label">Contact</span>
-            </div>
-          </div>
-          <div class="progress-bar">
-            <div class="progress-fill" id="progress-fill"></div>
-          </div>
-        </div>
-        
-        <form id="estimate-calculator">
-          <!-- Step 1: Property Information -->
-          <div class="calculator-step active" data-step="1">
-            <h3>Property Information</h3>
-            
+        <form id="siding-calculator">
+          <h3>Project Details</h3>
+          
+          <div class="form-row">
             <div class="form-group">
               <label for="home-size">Home Size (Square Feet) <span class="required">*</span></label>
               <input type="number" id="home-size" name="home-size" min="500" required placeholder="e.g., 1500">
@@ -68,9 +43,33 @@
                 <option value="2">2 Stories</option>
                 <option value="3">3+ Stories</option>
               </select>
-              <small>Multi-story homes require additional equipment and labor</small>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="siding-material">Siding Material <span class="required">*</span></label>
+              <select id="siding-material" name="siding-material" required>
+                <option value="vinyl">Vinyl Siding</option>
+                <option value="fiber-cement">Fiber Cement Siding</option>
+                <option value="wood">Wood Siding</option>
+                <option value="engineered-wood">Engineered Wood Siding</option>
+                <option value="metal">Metal Siding</option>
+                <option value="stone-veneer">Stone Veneer</option>
+              </select>
             </div>
             
+            <div class="form-group">
+              <label for="quality">Quality Level <span class="required">*</span></label>
+              <select id="quality" name="quality" required>
+                <option value="economy">Economy (Budget-friendly)</option>
+                <option value="standard" selected>Standard (Mid-range)</option>
+                <option value="premium">Premium (High-end)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
             <div class="form-group">
               <label for="complexity">Installation Complexity <span class="required">*</span></label>
               <select id="complexity" name="complexity" required>
@@ -78,225 +77,66 @@
                 <option value="moderate" selected>Moderate (some architectural details)</option>
                 <option value="complex">Complex (multiple gables, dormers, intricate cuts)</option>
               </select>
-              <small>More complex installations require additional labor and materials</small>
             </div>
             
             <div class="form-group">
               <label for="zip-code">ZIP Code <span class="required">*</span></label>
               <input type="text" id="zip-code" name="zip-code" pattern="[0-9]{5}" required placeholder="e.g., 12345">
-              <small>We use your ZIP code to adjust for regional pricing differences</small>
-            </div>
-            
-            <div class="form-buttons">
-              <button type="button" class="next-button" data-next="2">Continue to Materials</button>
+              <small>For regional pricing adjustments</small>
             </div>
           </div>
           
-          <!-- Step 2: Materials Information -->
-          <div class="calculator-step" data-step="2">
-            <h3>Materials Information</h3>
-            
+          <div class="form-row">
             <div class="form-group">
-              <label for="current-siding">Current Siding Type <span class="required">*</span></label>
-              <select id="current-siding" name="current-siding" required>
-                <option value="vinyl">Vinyl</option>
-                <option value="wood">Wood</option>
-                <option value="fiber-cement">Fiber Cement</option>
-                <option value="metal">Metal</option>
-                <option value="stucco">Stucco</option>
-                <option value="brick">Brick</option>
-                <option value="none">None (New Construction)</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label>Does the existing siding need to be removed? <span class="required">*</span></label>
-              <div class="radio-group">
-                <label class="radio-option">
+              <label>Does existing siding need to be removed? <span class="required">*</span></label>
+              <div class="radio-inline">
+                <label class="radio-option-inline">
                   <input type="radio" name="remove-existing" value="yes" checked>
-                  Yes, complete removal
+                  Yes
                 </label>
-                <label class="radio-option">
+                <label class="radio-option-inline">
                   <input type="radio" name="remove-existing" value="partial">
-                  Partial removal (some areas)
+                  Partially
                 </label>
-                <label class="radio-option">
+                <label class="radio-option-inline">
                   <input type="radio" name="remove-existing" value="no">
-                  No removal needed
+                  No
                 </label>
               </div>
             </div>
             
             <div class="form-group">
-              <label for="new-siding">New Siding Material <span class="required">*</span></label>
-              <select id="new-siding" name="new-siding" required>
-                <option value="vinyl">Vinyl Siding</option>
-                <option value="fiber-cement">Fiber Cement Siding</option>
-                <option value="wood">Wood Siding</option>
-                <option value="engineered-wood">Engineered Wood Siding</option>
-                <option value="metal">Metal Siding</option>
-                <option value="stone-veneer">Stone Veneer</option>
-                <option value="unsure">Not Sure Yet</option>
-              </select>
-              <small>Different materials have different costs and benefits</small>
-            </div>
-            
-            <div class="form-group">
-              <label for="siding-quality">Quality Level <span class="required">*</span></label>
-              <select id="siding-quality" name="siding-quality" required>
-                <option value="economy">Economy (Budget-friendly)</option>
-                <option value="standard" selected>Standard (Mid-range)</option>
-                <option value="premium">Premium (High-end)</option>
-              </select>
-              <small>Higher quality materials typically last longer and offer better performance</small>
-            </div>
-            
-            <div class="form-buttons">
-              <button type="button" class="back-button" data-back="1">Back</button>
-              <button type="button" class="next-button" data-next="3">Continue to Features</button>
-            </div>
-          </div>
-          
-          <!-- Step 3: Additional Features -->
-          <div class="calculator-step" data-step="3">
-            <h3>Additional Features</h3>
-            
-            <div class="form-group">
-              <label>Would you like to add insulation? <span class="required">*</span></label>
-              <div class="radio-group">
-                <label class="radio-option">
+              <label>Add insulation? <span class="required">*</span></label>
+              <div class="radio-inline">
+                <label class="radio-option-inline">
                   <input type="radio" name="insulation" value="yes">
-                  Yes, add insulation
+                  Yes
                 </label>
-                <label class="radio-option">
+                <label class="radio-option-inline">
                   <input type="radio" name="insulation" value="no" checked>
-                  No insulation needed
+                  No
                 </label>
               </div>
-              <small>Adding insulation can improve energy efficiency</small>
-            </div>
-            
-            <div class="form-group">
-              <label>Select additional features you'd like to include:</label>
-              <div class="checkbox-group">
-                <label class="checkbox-option">
-                  <input type="checkbox" name="additional-services" value="trim">
-                  Trim Replacement
-                </label>
-                <label class="checkbox-option">
-                  <input type="checkbox" name="additional-services" value="gutters">
-                  Gutter Replacement
-                </label>
-                <label class="checkbox-option">
-                  <input type="checkbox" name="additional-services" value="soffit-fascia">
-                  Soffit and Fascia
-                </label>
-                <label class="checkbox-option">
-                  <input type="checkbox" name="additional-services" value="windows">
-                  Window Wrapping
-                </label>
-              </div>
-            </div>
-            
-            <div class="form-group">
-              <label for="project-type">Project Type <span class="required">*</span></label>
-              <select id="project-type" name="project-type" required>
-                <option value="full-replacement" selected>Full Siding Replacement</option>
-                <option value="partial-replacement">Partial Siding Replacement</option>
-                <option value="repair">Siding Repair</option>
-                <option value="new-construction">New Construction</option>
-              </select>
-            </div>
-            
-            <div class="form-buttons">
-              <button type="button" class="back-button" data-back="2">Back</button>
-              <button type="button" class="next-button" data-next="4">Continue to Contact Info</button>
             </div>
           </div>
           
-          <!-- Step 4: Contact Information -->
-          <div class="calculator-step" data-step="4">
-            <h3>Contact Information</h3>
-            <p>Provide your contact details to receive a copy of your estimate.</p>
-            
-            <div class="form-group">
-              <label for="name">Full Name <span class="required">*</span></label>
-              <input type="text" id="name" name="name" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="email">Email Address <span class="required">*</span></label>
-              <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-              <label for="phone">Phone Number <span class="required">*</span></label>
-              <input type="tel" id="phone" name="phone" required>
-            </div>
-            
-            <div class="form-group consent-group">
-              <label class="checkbox-option">
-                <input type="checkbox" name="consent" required>
-                <span>I agree to receive my estimate and be contacted about my siding project <span class="required">*</span></span>
-              </label>
-            </div>
-            
-            <div class="form-buttons">
-              <button type="button" class="back-button" data-back="3">Back</button>
-              <button type="submit" class="submit-button">Get My Detailed Estimate</button>
-            </div>
+          <div class="form-buttons">
+            <button type="submit" class="submit-button">Calculate Cost</button>
           </div>
         </form>
         
         <!-- Results Section -->
         <div id="estimate-results">
-          <h3 class="result-title">Your Detailed Siding Estimate</h3>
-          <p class="result-subtitle">Based on the information you provided, here's a breakdown of your estimated siding project costs:</p>
+          <h3 class="result-title">Your Estimated Siding Cost</h3>
           
           <div class="estimate-range">
-            <div class="range-low">
-              <span class="range-label">Low Estimate</span>
-              <span class="range-value" id="low-estimate">$8,000</span>
-            </div>
-            <div class="range-separator">to</div>
-            <div class="range-high">
-              <span class="range-label">High Estimate</span>
-              <span class="range-value" id="high-estimate">$12,000</span>
-            </div>
+            <div class="range-value" id="price-range">$8,000 - $12,000</div>
           </div>
           
-          <div class="estimate-details">
-            <div class="detail-item">
-              <span class="detail-label">Materials Cost</span>
-              <span class="detail-value" id="material-cost">$5,000</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Labor Cost</span>
-              <span class="detail-value" id="labor-cost">$4,000</span>
-            </div>
-            <div class="detail-item">
-              <span class="detail-label">Average Cost Per Square Foot</span>
-              <span class="detail-value" id="sqft-cost">$7.50</span>
-            </div>
-          </div>
-          
-          <div class="included-services">
-            <h4>What's Included:</h4>
-            <ul id="included-items">
-              <li>Professional installation</li>
-              <li>Removal of existing siding</li>
-              <li>Project cleanup</li>
-              <li>Manufacturer warranty</li>
-            </ul>
-          </div>
-          
-          <div class="results-disclaimer">
-            <p>This is an estimate based on the information provided and industry averages. Actual costs may vary based on site conditions, material availability, and other factors. For a precise quote, we recommend scheduling an in-home consultation.</p>
-          </div>
+          <p class="results-note">This estimate is based on the information provided and industry averages. Actual costs may vary based on site conditions, material availability, and other factors.</p>
           
           <div class="results-cta">
-            <button id="schedule-consultation" class="cta-button">Schedule a Free Consultation</button>
+            <a href="quote.html" class="cta-button">Get a Detailed Quote</a>
             <button id="recalculate" class="cta-button secondary">Recalculate</button>
           </div>
         </div>
@@ -407,6 +247,12 @@
       background: linear-gradient(to right, var(--accent), var(--accent-light));
     }
     
+    h3 {
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
     .section-subtitle {
       text-align: center;
       color: var(--text-secondary);
@@ -421,88 +267,11 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     
-    .calculator-progress {
-      margin-bottom: 2rem;
-    }
-    
-    .progress-steps {
-      display: flex;
-      justify-content: space-between;
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
       margin-bottom: 1rem;
-    }
-    
-    .progress-step {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      width: 25%;
-    }
-    
-    .progress-step::after {
-      content: '';
-      position: absolute;
-      top: 15px;
-      left: 50%;
-      width: 100%;
-      height: 2px;
-      background-color: var(--border-color);
-      z-index: 1;
-    }
-    
-    .progress-step:last-child::after {
-      display: none;
-    }
-    
-    .step-number {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background-color: var(--bg-card);
-      border: 2px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.5rem;
-      position: relative;
-      z-index: 2;
-    }
-    
-    .progress-step.active .step-number {
-      background-color: var(--accent);
-      border-color: var(--accent);
-    }
-    
-    .step-label {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-    
-    .progress-step.active .step-label {
-      color: var(--text);
-      font-weight: 600;
-    }
-    
-    .progress-bar {
-      height: 6px;
-      background-color: var(--border-color);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(to right, var(--accent), var(--accent-light));
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    
-    .calculator-step {
-      display: none;
-    }
-    
-    .calculator-step.active {
-      display: block;
     }
     
     .form-group {
@@ -535,10 +304,25 @@
       font-size: 0.875rem;
     }
     
-    .form-buttons {
+    .radio-inline {
       display: flex;
-      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .radio-option-inline {
+      display: flex;
+      align-items: center;
+    }
+    
+    .radio-option-inline input {
+      width: auto;
+      margin-right: 0.5rem;
+    }
+    
+    .form-buttons {
       margin-top: 2rem;
+      text-align: center;
     }
     
     button {
@@ -557,166 +341,69 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
-    .back-button {
-      background: transparent;
-      border: 1px solid var(--border-color);
-      color: var(--text);
-    }
-    
-    .back-button:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      transform: translateY(-3px);
-    }
-    
-    .next-button, .submit-button {
-      margin-left: auto;
-    }
-    
-    .radio-group, .checkbox-group {
-      display: grid;
-      gap: 0.75rem;
-      margin-top: 0.5rem;
-    }
-    
-    .radio-option, .checkbox-option {
-      display: flex;
-      align-items: flex-start;
-      padding: 0.75rem;
-      border-radius: 4px;
-      border: 1px solid var(--border-color);
-      transition: background-color 0.3s;
-    }
-    
-    .radio-option:hover, .checkbox-option:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-    
-    .radio-option input, .checkbox-option input {
-      width: auto;
-      margin-right: 0.75rem;
-      margin-top: 0.25rem;
-    }
-    
-    .consent-group {
-      background-color: rgba(0, 0, 0, 0.2);
-      padding: 1rem;
-      border-radius: 4px;
+    .submit-button {
+      min-width: 200px;
     }
     
     #estimate-results {
       display: none;
-      margin-top: 3rem;
+      margin-top: 2rem;
       padding-top: 2rem;
       border-top: 1px solid var(--border-color);
+      text-align: center;
     }
     
     .result-title {
       text-align: center;
-      margin-bottom: 0.5rem;
-    }
-    
-    .result-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      border-bottom: none;
+      padding-bottom: 0;
     }
     
     .estimate-range {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    .range-low, .range-high {
-      text-align: center;
-    }
-    
-    .range-label {
-      display: block;
-      color: var(--text-secondary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
     }
     
     .range-value {
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: 700;
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
     }
     
-    .range-separator {
+    .results-note {
       color: var(--text-secondary);
-    }
-    
-    .estimate-details {
+      font-size: 0.9rem;
       margin-bottom: 2rem;
-    }
-    
-    .detail-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.75rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-    
-    .detail-item:last-child {
-      border-bottom: none;
-    }
-    
-    .detail-label {
-      color: var(--text-secondary);
-    }
-    
-    .included-services {
-      margin-bottom: 2rem;
-    }
-    
-    .included-services h4 {
-      margin-bottom: 1rem;
-    }
-    
-    .included-services ul {
-      list-style: none;
-    }
-    
-    .included-services li {
-      position: relative;
-      padding-left: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-    
-    .included-services li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: var(--success-color);
-    }
-    
-    .results-disclaimer {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      margin-bottom: 2rem;
-      padding: 1rem;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
     
     .results-cta {
       display: flex;
       gap: 1rem;
-      flex-wrap: wrap;
       justify-content: center;
     }
     
     .cta-button {
+      display: inline-block;
       padding: 0.75rem 1.5rem;
       border-radius: 4px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-decoration: none;
+      background: linear-gradient(to right, var(--accent), var(--accent-light));
+      color: white;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
     
     .cta-button.secondary {
@@ -736,27 +423,14 @@
         display: none;
       }
       
-      .progress-steps {
-        display: none;
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
       }
       
-      .form-buttons {
+      .radio-inline {
         flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .back-button, .next-button, .submit-button {
-        width: 100%;
-        margin: 0;
-      }
-      
-      .estimate-range {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .range-separator {
-        display: none;
+        gap: 0.5rem;
       }
       
       .results-cta {
@@ -769,7 +443,170 @@
     }
   </style>
 
-  <script src="assets/js/estimate-calculator.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const calculatorForm = document.getElementById("siding-calculator");
+      const estimateResults = document.getElementById("estimate-results");
+      const recalculateButton = document.getElementById("recalculate");
+      
+      if (calculatorForm && estimateResults) {
+        // Initially hide the results
+        estimateResults.style.display = "none";
+        
+        calculatorForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          
+          // Get form values
+          const homeSize = Number.parseFloat(document.getElementById("home-size").value);
+          const sidingMaterial = document.getElementById("siding-material").value;
+          const stories = Number.parseInt(document.getElementById("stories").value);
+          const complexity = document.getElementById("complexity").value;
+          const removeExisting = document.querySelector('input[name="remove-existing"]:checked').value;
+          const addInsulation = document.querySelector('input[name="insulation"]:checked').value;
+          const quality = document.getElementById("quality").value;
+          const zipCode = document.getElementById("zip-code").value;
+          
+          // Calculate estimates based on inputs
+          const estimates = calculateSidingEstimate(
+            homeSize,
+            sidingMaterial,
+            stories,
+            complexity,
+            removeExisting,
+            addInsulation,
+            quality,
+            zipCode
+          );
+          
+          // Update the DOM with calculated values
+          document.getElementById("price-range").textContent = 
+            "$" + estimates.lowEstimate.toLocaleString() + " - $" + estimates.highEstimate.toLocaleString();
+          
+          // Show the results
+          estimateResults.style.display = "block";
+          
+          // Scroll to results
+          estimateResults.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        
+        // Handle recalculate button
+        if (recalculateButton) {
+          recalculateButton.addEventListener("click", function() {
+            estimateResults.style.display = "none";
+            calculatorForm.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        }
+      }
+      
+      function calculateSidingEstimate(homeSize, material, stories, complexity = "moderate", removeExisting = "yes", addInsulation = "no", quality = "standard", zipCode) {
+        // Base material costs per square foot
+        const materialCosts = {
+          vinyl: {
+            economy: { low: 3, high: 5 },
+            standard: { low: 5, high: 8 },
+            premium: { low: 8, high: 12 },
+          },
+          "fiber-cement": {
+            economy: { low: 5, high: 7 },
+            standard: { low: 7, high: 10 },
+            premium: { low: 10, high: 13 },
+          },
+          wood: {
+            economy: { low: 6, high: 8 },
+            standard: { low: 8, high: 12 },
+            premium: { low: 12, high: 15 },
+          },
+          "engineered-wood": {
+            economy: { low: 4, high: 6 },
+            standard: { low: 6, high: 8 },
+            premium: { low: 8, high: 9 },
+          },
+          metal: {
+            economy: { low: 4, high: 7 },
+            standard: { low: 7, high: 10 },
+            premium: { low: 10, high: 14 },
+          },
+          "stone-veneer": {
+            economy: { low: 10, high: 20 },
+            standard: { low: 20, high: 35 },
+            premium: { low: 35, high: 50 },
+          },
+        };
+        
+        // Get the selected material cost range
+        const selectedMaterial = materialCosts[material] || { 
+          economy: { low: 4, high: 7 },
+          standard: { low: 7, high: 12 },
+          premium: { low: 12, high: 20 }
+        };
+        
+        const selectedQuality = selectedMaterial[quality] || selectedMaterial["standard"];
+        
+        // Calculate material costs
+        const lowMaterialCost = homeSize * selectedQuality.low;
+        const highMaterialCost = homeSize * selectedQuality.high;
+        
+        // Base labor costs per square foot
+        let laborCostPerSqFt = { low: 2, high: 5 };
+        
+        // Adjust labor costs based on complexity
+        if (complexity === "moderate") {
+          laborCostPerSqFt.low *= 1.2;
+          laborCostPerSqFt.high *= 1.2;
+        } else if (complexity === "complex") {
+          laborCostPerSqFt.low *= 1.5;
+          laborCostPerSqFt.high *= 1.5;
+        }
+        
+        // Adjust labor costs based on stories
+        if (stories === 2) {
+          laborCostPerSqFt.low *= 1.2;
+          laborCostPerSqFt.high *= 1.2;
+        } else if (stories >= 3) {
+          laborCostPerSqFt.low *= 1.4;
+          laborCostPerSqFt.high *= 1.4;
+        }
+        
+        // Calculate labor costs
+        const lowLaborCost = homeSize * laborCostPerSqFt.low;
+        const highLaborCost = homeSize * laborCostPerSqFt.high;
+        
+        // Additional costs
+        let additionalCosts = 0;
+        
+        // Add cost for removing existing siding
+        if (removeExisting === "yes") {
+          additionalCosts += homeSize * 1.5; // $1.50 per sq ft for removal
+        } else if (removeExisting === "partial") {
+          additionalCosts += homeSize * 0.75; // $0.75 per sq ft for partial removal
+        }
+        
+        // Add cost for insulation
+        if (addInsulation === "yes") {
+          additionalCosts += homeSize * 2; // $2.00 per sq ft for insulation
+        }
+        
+        // Regional adjustment based on zip code
+        let regionalFactor = 1.0;
+        const firstDigit = Number.parseInt(zipCode.charAt(0));
+        
+        // Simple regional adjustment based on first digit of zip code
+        if (firstDigit >= 0 && firstDigit <= 9) {
+          const regionalFactors = [1.1, 0.9, 0.95, 1.0, 1.05, 0.9, 0.85, 1.15, 1.2, 1.1];
+          regionalFactor = regionalFactors[firstDigit];
+        }
+        
+        // Calculate total estimates
+        const lowEstimate = Math.round((lowMaterialCost + lowLaborCost + additionalCosts) * regionalFactor);
+        const highEstimate = Math.round((highMaterialCost + highLaborCost + additionalCosts) * regionalFactor);
+        
+        return {
+          lowEstimate: lowEstimate,
+          highEstimate: highEstimate
+        };
+      }
+    });
+  </script>
 </body>
 </html>
 
