@@ -1,312 +1,584 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Siding Calculator | Instant Siding Prices</title>
-    <style>
-        /* Dark theme with clean design */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            line-height: 1.6;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        header {
-            background-color: rgba(0,0,0,0.7);
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ffffff;
-            text-decoration: none;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        
-        nav li {
-            margin-left: 2rem;
-        }
-        
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: #00d2ff;
-        }
-        
-        section {
-            padding: 5rem 0;
-            padding-top: 100px;
-        }
-        
-        .card {
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        h2 {
-            margin-bottom: 2rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 1rem;
-        }
-        
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, #3a7bd5, #00d2ff);
-        }
-        
-        form {
-            display: grid;
-            gap: 1.5rem;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 1px solid #333;
-            border-radius: 4px;
-            background-color: #252525;
-            color: #ffffff;
-        }
-        
-        button {
-            background: linear-gradient(to right, #3a7bd5, #00d2ff);
-            color: white;
-            border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-        
-        button:hover {
-            transform: translateY(-3px);
-        }
-        
-        .result {
-            background-color: #1e1e1e;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-top: 2rem;
-            display: none;
-        }
-        
-        .result-title {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-        
-        .price {
-            font-size: 2rem;
-            text-align: center;
-            margin-bottom: 1rem;
-            color: #00d2ff;
-        }
-        
-        footer {
-            background-color: #0a0a0a;
-            padding: 2rem 0;
-            text-align: center;
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container header-content">
-            <a href="index.html" class="logo">Instant Siding Prices</a>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="quote.html">Get Quote</a></li>
-                    <li><a href="calculator.html">Calculator</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+---
+layout: default
+title: Siding Cost Calculator
+---
 
-    <section class="page-content">
+<section class="page-content">
   <div class="container">
     <h2>Siding Cost Calculator</h2>
+    <p class="section-subtitle">Get a detailed estimate for your siding project based on industry-standard pricing</p>
+    
     <div class="card">
-      <form id="calculator-form">
-        <div>
-          <label for="home-size">Home Size (Square Feet)</label>
-          <input type="number" id="home-size" name="home-size" min="500" required>
+      <div class="calculator-progress">
+        <div class="progress-steps">
+          <div class="progress-step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-label">Property</span>
+          </div>
+          <div class="progress-step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-label">Materials</span>
+          </div>
+          <div class="progress-step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-label">Features</span>
+          </div>
+          <div class="progress-step" data-step="4">
+            <span class="step-number">4</span>
+            <span class="step-label">Contact</span>
+          </div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+      </div>
+      
+      <form id="estimate-calculator">
+        <!-- Step 1: Property Information -->
+        <div class="calculator-step active" data-step="1">
+          <h3>Property Information</h3>
+          
+          <div class="form-group">
+            <label for="home-size">Home Size (Square Feet) <span class="required">*</span></label>
+            <input type="number" id="home-size" name="home-size" min="500" required placeholder="e.g., 1500">
+            <small>Enter the approximate square footage of your home's exterior walls</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="stories">Number of Stories <span class="required">*</span></label>
+            <select id="stories" name="stories" required>
+              <option value="1">1 Story</option>
+              <option value="2">2 Stories</option>
+              <option value="3">3+ Stories</option>
+            </select>
+            <small>Multi-story homes require additional equipment and labor</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="complexity">Installation Complexity <span class="required">*</span></label>
+            <select id="complexity" name="complexity" required>
+              <option value="simple">Simple (rectangular shape, few windows)</option>
+              <option value="moderate" selected>Moderate (some architectural details)</option>
+              <option value="complex">Complex (multiple gables, dormers, intricate cuts)</option>
+            </select>
+            <small>More complex installations require additional labor and materials</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="zip-code">ZIP Code <span class="required">*</span></label>
+            <input type="text" id="zip-code" name="zip-code" pattern="[0-9]{5}" required placeholder="e.g., 12345">
+            <small>We use your ZIP code to adjust for regional pricing differences</small>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="next-button" data-next="2">Continue to Materials</button>
+          </div>
         </div>
         
-        <div>
-          <label for="siding-material">Siding Material</label>
-          <select id="siding-material" name="siding-material" required>
-            <option value="">Select Material</option>
-            <option value="vinyl">Vinyl Siding</option>
-            <option value="fiber-cement">Fiber Cement Siding</option>
-            <option value="wood">Wood Siding</option>
-            <option value="engineered-wood">Engineered Wood Siding</option>
-            <option value="metal">Metal Siding</option>
-          </select>
+        <!-- Step 2: Materials Information -->
+        <div class="calculator-step" data-step="2">
+          <h3>Materials Information</h3>
+          
+          <div class="form-group">
+            <label for="current-siding">Current Siding Type <span class="required">*</span></label>
+            <select id="current-siding" name="current-siding" required>
+              <option value="vinyl">Vinyl</option>
+              <option value="wood">Wood</option>
+              <option value="fiber-cement">Fiber Cement</option>
+              <option value="metal">Metal</option>
+              <option value="stucco">Stucco</option>
+              <option value="brick">Brick</option>
+              <option value="none">None (New Construction)</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Does the existing siding need to be removed? <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="remove-existing" value="yes" checked>
+                Yes, complete removal
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="remove-existing" value="partial">
+                Partial removal (some areas)
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="remove-existing" value="no">
+                No removal needed
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="new-siding">New Siding Material <span class="required">*</span></label>
+            <select id="new-siding" name="new-siding" required>
+              <option value="vinyl">Vinyl Siding</option>
+              <option value="fiber-cement">Fiber Cement Siding</option>
+              <option value="wood">Wood Siding</option>
+              <option value="engineered-wood">Engineered Wood Siding</option>
+              <option value="metal">Metal Siding</option>
+              <option value="stone-veneer">Stone Veneer</option>
+              <option value="unsure">Not Sure Yet</option>
+            </select>
+            <small>Different materials have different costs and benefits</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="siding-quality">Quality Level <span class="required">*</span></label>
+            <select id="siding-quality" name="siding-quality" required>
+              <option value="economy">Economy (Budget-friendly)</option>
+              <option value="standard" selected>Standard (Mid-range)</option>
+              <option value="premium">Premium (High-end)</option>
+            </select>
+            <small>Higher quality materials typically last longer and offer better performance</small>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="back-button" data-back="1">Back</button>
+            <button type="button" class="next-button" data-next="3">Continue to Features</button>
+          </div>
         </div>
         
-        <div>
-          <label for="stories">Number of Stories</label>
-          <select id="stories" name="stories" required>
-            <option value="1">1 Story</option>
-            <option value="2">2 Stories</option>
-            <option value="3">3+ Stories</option>
-          </select>
+        <!-- Step 3: Additional Features -->
+        <div class="calculator-step" data-step="3">
+          <h3>Additional Features</h3>
+          
+          <div class="form-group">
+            <label>Would you like to add insulation? <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="insulation" value="yes">
+                Yes, add insulation
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="insulation" value="no" checked>
+                No insulation needed
+              </label>
+            </div>
+            <small>Adding insulation can improve energy efficiency</small>
+          </div>
+          
+          <div class="form-group">
+            <label>Select additional features you'd like to include:</label>
+            <div class="checkbox-group">
+              <label class="checkbox-option">
+                <input type="checkbox" name="additional-services" value="trim">
+                Trim Replacement
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="additional-services" value="gutters">
+                Gutter Replacement
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="additional-services" value="soffit-fascia">
+                Soffit and Fascia
+              </label>
+              <label class="checkbox-option">
+                <input type="checkbox" name="additional-services" value="windows">
+                Window Wrapping
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="project-type">Project Type <span class="required">*</span></label>
+            <select id="project-type" name="project-type" required>
+              <option value="full-replacement" selected>Full Siding Replacement</option>
+              <option value="partial-replacement">Partial Siding Replacement</option>
+              <option value="repair">Siding Repair</option>
+              <option value="new-construction">New Construction</option>
+            </select>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="back-button" data-back="2">Back</button>
+            <button type="button" class="next-button" data-next="4">Continue to Contact Info</button>
+          </div>
         </div>
         
-        <div>
-          <label for="quality">Quality Level</label>
-          <select id="quality" name="quality" required>
-            <option value="economy">Economy</option>
-            <option value="standard" selected>Standard</option>
-            <option value="premium">Premium</option>
-          </select>
+        <!-- Step 4: Contact Information -->
+        <div class="calculator-step" data-step="4">
+          <h3>Contact Information</h3>
+          <p>Provide your contact details to receive a copy of your estimate.</p>
+          
+          <div class="form-group">
+            <label for="name">Full Name <span class="required">*</span></label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+          
+          <div class="form-group consent-group">
+            <label class="checkbox-option">
+              <input type="checkbox" name="consent" required>
+              <span>I agree to receive my estimate and be contacted about my siding project <span class="required">*</span></span>
+            </label>
+          </div>
+          
+          <div class="form-buttons">
+            <button type="button" class="back-button" data-back="3">Back</button>
+            <button type="submit" class="submit-button">Get My Detailed Estimate</button>
+          </div>
         </div>
-        
-        <button type="submit">Calculate Cost</button>
       </form>
       
-      <div id="calculator-result" class="result">
-        <h3 class="result-title">Estimated Siding Cost</h3>
-        <div class="price" id="price-range">$8,000 - $12,000</div>
-        <p>This is an estimate based on the information provided. For a more accurate quote, please <a href="quote.html">request a personalized estimate</a>.</p>
+      <!-- Results Section -->
+      <div id="estimate-results">
+        <h3 class="result-title">Your Detailed Siding Estimate</h3>
+        <p class="result-subtitle">Based on the information you provided, here's a breakdown of your estimated siding project costs:</p>
+        
+        <div class="estimate-range">
+          <div class="range-low">
+            <span class="range-label">Low Estimate</span>
+            <span class="range-value" id="low-estimate">$8,000</span>
+          </div>
+          <div class="range-separator">to</div>
+          <div class="range-high">
+            <span class="range-label">High Estimate</span>
+            <span class="range-value" id="high-estimate">$12,000</span>
+          </div>
+        </div>
+        
+        <div class="estimate-details">
+          <div class="detail-item">
+            <span class="detail-label">Materials Cost</span>
+            <span class="detail-value" id="material-cost">$5,000</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Labor Cost</span>
+            <span class="detail-value" id="labor-cost">$4,000</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Average Cost Per Square Foot</span>
+            <span class="detail-value" id="sqft-cost">$7.50</span>
+          </div>
+        </div>
+        
+        <div class="included-services">
+          <h4>What's Included:</h4>
+          <ul id="included-items">
+            <li>Professional installation</li>
+            <li>Removal of existing siding</li>
+            <li>Project cleanup</li>
+            <li>Manufacturer warranty</li>
+          </ul>
+        </div>
+        
+        <div class="results-disclaimer">
+          <p>This is an estimate based on the information provided and industry averages. Actual costs may vary based on site conditions, material availability, and other factors. For a precise quote, we recommend scheduling an in-home consultation.</p>
+        </div>
+        
+        <div class="results-cta">
+          <button id="schedule-consultation" class="cta-button">Schedule a Free Consultation</button>
+          <button id="recalculate" class="cta-button secondary">Recalculate</button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 Instant Siding Prices. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const calculatorForm = document.getElementById('calculator-form');
-            const calculatorResult = document.getElementById('calculator-result');
-            const priceRange = document.getElementById('price-range');
-            
-            if (calculatorForm) {
-                calculatorForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Get form values
-                    const homeSize = parseInt(document.getElementById('home-size').value);
-                    const material = document.getElementById('siding-material').value;
-                    const stories = parseInt(document.getElementById('stories').value);
-                    const quality = document.getElementById('quality').value;
-                    
-                    // Calculate price range
-                    let pricePerSqFt = {
-                        min: 0,
-                        max: 0
-                    };
-                    
-                    // Base price by material
-                    switch(material) {
-                        case 'vinyl':
-                            pricePerSqFt = { min: 3, max: 7 };
-                            break;
-                        case 'fiber-cement':
-                            pricePerSqFt = { min: 5, max: 11 };
-                            break;
-                        case 'wood':
-                            pricePerSqFt = { min: 6, max: 12 };
-                            break;
-                        case 'engineered-wood':
-                            pricePerSqFt = { min: 4, max: 9 };
-                            break;
-                        case 'metal':
-                            pricePerSqFt = { min: 4, max: 10 };
-                            break;
-                        default:
-                            pricePerSqFt = { min: 4, max: 10 };
-                    }
-                    
-                    // Adjust for quality
-                    if (quality === 'economy') {
-                        pricePerSqFt.min *= 0.8;
-                        pricePerSqFt.max *= 0.8;
-                    } else if (quality === 'premium') {
-                        pricePerSqFt.min *= 1.3;
-                        pricePerSqFt.max *= 1.3;
-                    }
-                    
-                    // Adjust for stories
-                    if (stories === 2) {
-                        pricePerSqFt.min *= 1.1;
-                        pricePerSqFt.max *= 1.1;
-                    } else if (stories >= 3) {
-                        pricePerSqFt.min *= 1.2;
-                        pricePerSqFt.max *= 1.2;
-                    }
-                    
-                    // Calculate total price range
-                    const minPrice = Math.round(homeSize * pricePerSqFt.min);
-                    const maxPrice = Math.round(homeSize * pricePerSqFt.max);
-                    
-                    // Update result
-                    priceRange.textContent = '$' + minPrice.toLocaleString() + ' - $' + maxPrice.toLocaleString();
-                    calculatorResult.style.display = 'block';
-                });
-            }
-        });
-    </script>
-</body>
-</html>
+<style>
+  /* Calculator specific styles */
+  .calculator-progress {
+    margin-bottom: 2rem;
+  }
+  
+  .progress-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .progress-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 25%;
+  }
+  
+  .progress-step::after {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--border-color, #2d3748);
+    z-index: 1;
+  }
+  
+  .progress-step:last-child::after {
+    display: none;
+  }
+  
+  .step-number {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--card-bg, #232836);
+    border: 2px solid var(--border-color, #2d3748);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .progress-step.active .step-number {
+    background-color: var(--primary-color, #3a7bd5);
+    border-color: var(--primary-color, #3a7bd5);
+  }
+  
+  .step-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary, #b8c2cc);
+  }
+  
+  .progress-step.active .step-label {
+    color: var(--text-primary, #ffffff);
+    font-weight: 600;
+  }
+  
+  .progress-bar {
+    height: 6px;
+    background-color: var(--border-color, #2d3748);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--primary-color, #3a7bd5), var(--secondary-color, #00d2ff));
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+  
+  .calculator-step {
+    display: none;
+  }
+  
+  .calculator-step.active {
+    display: block;
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+  }
+  
+  .back-button {
+    background: transparent;
+    border: 1px solid var(--border-color, #2d3748);
+    color: var(--text-primary, #ffffff);
+  }
+  
+  .back-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .next-button, .submit-button {
+    background: linear-gradient(to right, var(--primary-color, #3a7bd5), var(--secondary-color, #00d2ff));
+    margin-left: auto;
+  }
+  
+  .radio-group, .checkbox-group {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  
+  .radio-option, .checkbox-option {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #2d3748);
+    transition: background-color 0.3s;
+  }
+  
+  .radio-option:hover, .checkbox-option:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .radio-option input, .checkbox-option input {
+    margin-right: 0.75rem;
+    margin-top: 0.25rem;
+  }
+  
+  small {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--text-muted, #8795a8);
+    font-size: 0.875rem;
+  }
+  
+  #estimate-results {
+    display: none;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color, #2d3748);
+  }
+  
+  .result-title {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  
+  .result-subtitle {
+    text-align: center;
+    color: var(--text-secondary, #b8c2cc);
+    margin-bottom: 2rem;
+  }
+  
+  .estimate-range {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color, #2d3748);
+  }
+  
+  .range-low, .range-high {
+    text-align: center;
+  }
+  
+  .range-label {
+    display: block;
+    color: var(--text-secondary, #b8c2cc);
+    margin-bottom: 0.5rem;
+  }
+  
+  .range-value {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .range-separator {
+    color: var(--text-secondary, #b8c2cc);
+  }
+  
+  .estimate-details {
+    margin-bottom: 2rem;
+  }
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color, #2d3748);
+  }
+  
+  .detail-item:last-child {
+    border-bottom: none;
+  }
+  
+  .detail-label {
+    color: var(--text-secondary, #b8c2cc);
+  }
+  
+  .included-services {
+    margin-bottom: 2rem;
+  }
+  
+  .included-services h4 {
+    margin-bottom: 1rem;
+  }
+  
+  .included-services ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .included-services li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .included-services li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--success-color, #48bb78);
+  }
+  
+  .results-disclaimer {
+    font-size: 0.875rem;
+    color: var(--text-muted, #8795a8);
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+  }
+  
+  .results-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .cta-button {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .cta-button.secondary {
+    background: transparent;
+    border: 1px solid var(--primary-color, #3a7bd5);
+    color: var(--primary-color, #3a7bd5);
+  }
+  
+  @media (max-width: 768px) {
+    .progress-steps {
+      display: none;
+    }
+    
+    .form-buttons {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .back-button, .next-button, .submit-button {
+      width: 100%;
+      margin: 0;
+    }
+    
+    .estimate-range {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .range-separator {
+      display: none;
+    }
+    
+    .results-cta {
+      flex-direction: column;
+    }
+    
+    .cta-button {
+      width: 100%;
+    }
+  }
+</style>
 
